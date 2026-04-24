@@ -1,0 +1,88 @@
+/* 评价列表容器 */
+.review-list {
+	padding: 15px;
+	background: #fff;
+}
+
+/* 头部评分 */
+.review-header {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+.review-score {
+	text-align: center;
+	margin-right: 20px;
+}
+.score-text {
+	font-size: 28px;
+	color: #ffb400;
+	font-weight: bold;
+}
+.score-desc {
+	display: block;
+	font-size: 12px;
+	color: #999;
+}
+.review-stats view {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+}
+.review-stats progress {
+	width: 100px;
+	margin: 0 8px;
+}
+
+/* 筛选栏 */
+.review-filter {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+
+/* 单条评价 */
+.review-item {
+	padding: 15px 0;
+	border-bottom: 1px solid #f5f5f5;
+}
+.user-info {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+}
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.username {
+	font-size: 14px;
+	color: #333;
+}
+.review-content {
+	margin-left: 50px;
+}
+.review-text {
+	display: block;
+	margin: 8px 0;
+	font-size: 14px;
+	line-height: 1.5;
+}
+.review-images {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 10px 0;
+}
+.review-images image {
+	width: 80px;
+	height: 80px;
+	border-radius: 4px;
+}
+.review-time {
+	font-size: 12px;
+	color: #999;
+}

@@ -1,0 +1,19 @@
+<navbar parameter='{{parameter}}' logoUrl="{{logoUrl}}"></navbar>
+<view class='index'>
+   <map id="map" longitude="{{location.longitude}}" show-location latitude="{{location.latitude}}"
+      markers="{{markers}}" scale="14" bindmarkertap="markertap" bindcallouttap="callouttap">
+   </map>
+   <!-- 附近设备 -->
+   <view class="site" bindtap="chanageTap" wx:if="{{false}}">
+      <view class="site_title">
+         附近设备 >
+      </view>
+      <view class="iconfont icon-zuobiao"></view>
+   </view>
+   <!-- 重定向 -->
+   <view class="iconfont icon-zhongdingxiang" bindtap="signIn"></view>
+   <!-- <view class="fix_btn location_btn">
+      <button formType="submit" class="btn" bindtap="signIn"></button>
+   </view> -->
+</view>
+<authorize bind:onLoadFun="onLoadFun"  iShidden="{{iShidden}}"></authorize>

@@ -1,0 +1,51 @@
+/* 评价容器 */
+.evaluate-container {
+	padding: 40rpx;
+	background-color: #fff;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+
+/* 标题样式 */
+.evaluate-title {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+	margin-bottom: 60rpx;
+}
+
+/* 评分区域 */
+.rate-section {
+	display: flex;
+	align-items: center;
+	margin-bottom: 50rpx;
+	padding-bottom: 40rpx;
+	border-bottom: 1rpx solid #f5f5f5;
+}
+
+.rate-label {
+	font-size: 30rpx;
+	color: #666;
+	margin-right: 20rpx;
+}
+
+.rate-text {
+	font-size: 28rpx;
+	color: #ffb400;
+	margin-left: 30rpx;
+}
+
+/* 自定义按钮样式 */
+.submit-btn {
+	margin-top: 60rpx;
+	background: linear-gradient(to right, #ff9500, #ff5000) !important;
+	border: none !important;
+}
+
+/* 自定义输入框样式 */
+.custom-textarea {
+	background-color: #f9f9f9;
+	border-radius: 16rpx;
+	padding: 20rpx;
+}

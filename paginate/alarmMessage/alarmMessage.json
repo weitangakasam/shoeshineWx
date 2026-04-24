@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "柜子列表",
+	"navigationStyle": "default",
+	"usingComponents": {
+		"navbar": "/components/navbar/index"
+	}
+}

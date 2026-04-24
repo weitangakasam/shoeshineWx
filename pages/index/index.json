@@ -1,0 +1,10 @@
+{
+	"usingComponents": {
+		"navbar": "/components/navbar/index",
+		"authorize": "/components/authorize/authorize",
+		"showModal": "/components/showModal/showModal",
+		"fui-grid": "/components/firstui/fui-grid/fui-grid",
+		"fui-grid-item": "/components/firstui/fui-grid-item/fui-grid-item",
+		"fui-tag": "/components/firstui/fui-tag/fui-tag"
+	}
+}

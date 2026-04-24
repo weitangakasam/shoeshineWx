@@ -1,0 +1,33 @@
+<view class="box">
+	<block wx:for="{{ goodsList }}" wx:key="index">
+		<view class="card">
+			<image bind:tap="linkTo" data-url="/paginate/productDetailsPage/productDetailsPage" data-id="{{ item.id }}" src="{{ item.img }}" mode="aspectFit" />
+			<view bind:tap="linkTo" data-url="/paginate/productDetailsPage/productDetailsPage" data-id="{{ item.id }}" class="title">{{item.title}}</view>
+			<view style="display: flex;align-items: flex-end;padding: 0 calc(750rpx * 8 / 375);margin-top: calc(750rpx * 6 / 375);margin-bottom: calc(750rpx * 16 / 375);justify-content: space-between;">
+				<view bind:tap="linkTo" data-url="/paginate/productDetailsPage/productDetailsPage" data-id="{{ item.id }}">
+					<view style="display: flex;margin-right: calc(750rpx * 4 / 375);">
+						<view style="font-size: 14px;color: #f5535b;font-weight: 600;margin-right: 0.2em;">¥</view>
+						<view class="price">{{ item.price}}</view>
+					</view>
+				</view>
+				<van-stepper wx:if="{{ selectedIndexes[index].num > 0 }}" data-item="{{ item }}" data-index="{{ index }}" value="{{ selectedIndexes[index].num }}" min="0" integer catch:change="toggleSelect"></van-stepper>
+				<van-button wx:else data-item="{{ item }}" data-index="{{ index }}" catch:tap="toggleSelect" icon="add" round color="#f00" size="small" />
+			</view>
+		</view>
+	</block>
+</view>
+<!-- 底部提交按钮 -->
+<view class="footer">
+	<view class="price-display">
+		<text>合计：</text>
+		<text class="total-price">¥{{ totalPrice || '0.00'}}</text>
+	</view>
+	<view style="display: flex; gap: 20rpx;">
+		<van-button type="success" icon="shopping-cart" loading="{{ isSubmitting }}" block bind:click="addShop" custom-class="submit-btn" round>
+			<text>加入购物车</text>
+		</van-button>
+		<van-button type="primary" icon="balance-list" loading="{{ isSubmitting }}" block bind:click="onSubmit" custom-class="submit-btn" round>
+			<text>立即下单</text>
+		</van-button>
+	</view>
+</view>

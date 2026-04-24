@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "优惠券",
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "authorize": "/components/authorize/authorize"
+  }
+}

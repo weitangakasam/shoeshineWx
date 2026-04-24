@@ -1,0 +1,7 @@
+
+<import src="../../wxParse/wxParse.wxml"></import>
+
+<navbar parameter="{{parameter}}"></navbar>
+<view style="padding: 0 0rpx;">
+  <template is="wxParse" data="{{wxParseData:content.nodes}}"></template>
+</view>

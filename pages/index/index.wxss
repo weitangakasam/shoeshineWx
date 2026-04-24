@@ -1,0 +1,109 @@
+/**index.wxss**/
+.userinfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #aaa;
+}
+/* 容器样式（横向排列多个项目时用） */
+.icon-text-container {
+	display: flex;
+	background: #fff;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+}
+
+/* 图标容器（可选：用于角标定位） */
+.icon-wrapper {
+	position: relative;
+	margin-bottom: 10rpx; /* 图标与文字的间距 */
+}
+
+/* 图标样式 */
+.icon {
+	width: 60rpx; /* 图标大小 */
+	height: 60rpx;
+}
+
+/* 文字样式 */
+.text {
+	font-size: 28rpx;
+	color: #333; /* 文字颜色 */
+	text-align: center;
+	line-height: 1.4;
+}
+
+/* 角标样式（可选） */
+.badge {
+	position: absolute;
+	top: -10rpx;
+	right: -10rpx;
+	min-width: 30rpx;
+	height: 30rpx;
+	background: #ff0000;
+	color: white;
+	font-size: 20rpx;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 8rpx;
+}
+
+/* 点击反馈效果 */
+.icon-text-container:active {
+	opacity: 0.7;
+}
+.userinfo-avatar {
+	overflow: hidden;
+	width: 128rpx;
+	height: 128rpx;
+	margin: 20rpx;
+	border-radius: 50%;
+}
+
+.usermotto {
+	margin-top: 200px;
+}
+
+page {
+	background-color: #fff !important;
+}
+.fui-grid__cell {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.fui-icon {
+	width: 80%;
+	margin: 20rpx 0;
+}
+.image-container {
+	position: relative; /* 关键：让覆盖层相对于容器定位 */
+	width: 100%; /* 容器宽度自适应 */
+	display: inline-block; /* 避免容器撑开 */
+}
+
+.target-image {
+	width: 100%; /* 图片宽度自适应容器 */
+	display: block; /* 去除图片底部间隙 */
+}
+
+.click-area {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 50%; /* 左右区域各占50% */
+	opacity: 0; /* 透明，不影响图片显示 */
+	cursor: pointer; /* 鼠标悬停时显示手型（可选） */
+}
+
+.left-area {
+	left: 0; /* 左侧覆盖层 */
+}
+
+.right-area {
+	right: 0; /* 右侧覆盖层 */
+}

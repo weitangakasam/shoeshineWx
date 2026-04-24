@@ -1,0 +1,9 @@
+<!--pages/user/jianyidetail.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+
+<view style="padding:20rpx;">
+  <view style="font-size:40rpx;text-align:center;">{{info.title}}</view>
+  <!-- <view style="color:gray;font-size:22rpx;text-align:right;">{{info.mobile}}</view> -->
+  <view style="color:gray;font-size:22rpx;text-align:right;">{{info.create_time}}</view>
+  <view style="margin-top:30rpx;padding:0 20rpx;">{{info.content}}</view>
+</view>

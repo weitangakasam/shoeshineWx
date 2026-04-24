@@ -1,0 +1,19 @@
+<navbar parameter="{{ parameter }}" />
+<block wx:for="{{ goods_list }}" wx:key="index">
+	<van-card
+		num="{{ item.count }}"
+		price="{{ item.price }}"
+		title="{{ item.title }}"
+		thumb="{{ item.img }}"
+	>
+		<view slot="footer">
+			<van-button size="mini">x{{item.num}}</van-button>
+		</view>
+	</van-card>
+</block>
+<van-submit-bar
+	safe-area-inset-bottom
+	price="{{ price }}"
+	button-text="提交订单"
+	bind:submit="onSubmit"
+/>

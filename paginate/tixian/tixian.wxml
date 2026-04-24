@@ -1,0 +1,31 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="cash-withdrawal">
+    <view class="wrapper">
+        <view class="list" wx:if="{{tongyi}}">
+            <form bindsubmit="subCash">
+                <view class='item acea-row row-between-wrapper'>
+                    <view class='name'>账号</view>
+                    <view class='input'><input placeholder='请填写您的支付宝账号' placeholder-class='placeholder' name="account"></input></view>
+                </view>
+                <view class='item acea-row row-between-wrapper'>
+                    <view class='name'>姓名</view>
+                    <view class='input'><input placeholder='请输入您的姓名' placeholder-class='placeholder' name="account_name"></input></view>
+                </view>
+                <view wx:if="{{type!=='押金'}}" class='item acea-row row-between-wrapper'>
+                    <view class='name'>提现</view>
+                    <view class='input'><input type="number" placeholder='请输入提现金额' placeholder-class='placeholder' bindblur="handleInput" name="money" type='digit'></input></view>
+                </view>
+                <view class='item acea-row row-between-wrapper' wx:if="{{type == '会员提现'}}">
+                    <view class='name'>实际到账</view>
+                    <view class='input'><input placeholder='手续费{{withdrawal_proportion * 100}}%' placeholder-class='placeholder' value="{{money2}}" disabled></input></view>
+                </view>
+                <view class='tip'>当前可提现金额: {{type==='押金'?userInfo.yajin_money|| 0:userInfo.money || 0}} 元</view>
+                <button formType="submit" class='bnt app_btnwodeyajin' style="padding: 0;">提现</button>
+            </form>
+        </view>
+        <view wx:else style="padding: 50rpx">
+            <view style="margin: 0 0 50rpx 0">申请提现之前需要您填写相关信息，进行提现操作，您是否接受</view>
+            <button bindtap="tongyi" class='bnt app_btn'>我接受</button>
+        </view>
+    </view>
+</view>

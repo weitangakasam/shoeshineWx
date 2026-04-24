@@ -1,0 +1,110 @@
+{
+	"pages": [
+		"pages/index/index",
+		"pages/user/user",
+		"pages/order/order",
+		"pages/map/map",
+		"pages/mall/mall"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#EF8200",
+		"navigationBarTitleText": "Weixin",
+		"navigationBarTextStyle": "black",
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		"custom": false,
+		"color": "#6e6d6b",
+		"selectedColor": "#fd4a5f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "images/home.png",
+				"selectedIconPath": "images/home-active.png"
+			},
+			{
+				"pagePath": "pages/mall/mall",
+				"text": "购物车",
+				"iconPath": "images/orderr.png",
+				"selectedIconPath": "images/orderr-active.png"
+			},
+			{
+				"pagePath": "pages/order/order",
+				"text": "订单",
+				"iconPath": "images/orderr.png",
+				"selectedIconPath": "images/orderr-active.png"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "我的",
+				"iconPath": "images/user.png",
+				"selectedIconPath": "images/user-active.png"
+			}
+		],
+		"position": "bottom"
+	},
+	"subPackages": [
+		{
+			"root": "paginate/",
+			"pages": [
+				"add_shebei/add_shebei",
+				"alarmMessage/alarmMessage",
+				"cabinetDoorList/cabinetDoorList",
+				"cabinetList/cabinetList",
+				"cash/cash",
+				"duihuan/duihuan",
+				"editPwd/editPwd",
+				"evaluate/evaluate",
+				"fencheng/fencheng",
+				"guzhang/guzhang",
+				"hehuoren/changsuo_admin",
+				"hehuoren/hehuoren",
+				"hehuoren/order",
+				"hehuoren/puhuo",
+				"hehuoren/puhuo_edit",
+				"hehuoren/renyuan_admin",
+				"hehuoren/shebeiAdd",
+				"hehuoren/shebei_admin",
+				"hehuoren/xiajia",
+				"hehuoren/youhuiquan",
+				"map/map",
+				"orderReview/orderReview",
+				"order_list/index",
+				"rich_text/rich_text",
+				"selectCabinet/selectCabinet",
+				"setUserInfo/setUserInfo",
+				"shezhi/login",
+				"tixian/tixian",
+				"user/apply",
+				"yijian/add",
+				"yijian/detail",
+				"yijian/yijian",
+				"youhuiquan/use",
+				"youhuiquan/xieyi",
+				"youhuiquan/youhuiquan"
+			]
+		}
+	],
+	"usingComponents": {
+		"navbar": "/components/navbar/index",
+		"fui-list-cell": "components/firstui/fui-list-cell/fui-list-cell",
+		"fui-icon": "components/firstui/fui-icon/fui-icon",
+		"fui-button": "components/firstui/fui-button/fui-button"
+	},
+	"useExtendedLib": {
+		"weui": true
+	},
+	"requiredPrivateInfos": [
+		"chooseLocation"
+	],
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
+		}
+	},
+	"sitemapLocation": "sitemap.json"
+}

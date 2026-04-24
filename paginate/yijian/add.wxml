@@ -1,0 +1,64 @@
+<!--pages/user/jianyiadd.wxml-->
+<navbar parameter="{{ parameter }}"></navbar>
+<!-- <view class="box">
+	<view class="form-item">
+		<view class="title">标题</view>
+		<view class="input-box">
+			<input type="text" model:value="{{ title }}" />
+		</view>
+	</view>
+	<view class="form-item">
+		<view class="title">内容</view>
+		<view class="input-box">
+			<textarea class="input" value="{{ content }}" bindinput="changeText" id="" rows="5"></textarea>
+		</view>
+	</view>
+	<view class="form-item">
+		<button class="app_btn" bindtap="submit">提交</button>
+	</view>
+</view> -->
+<!-- 意见反馈页面 -->
+<view class="feedback-container">
+	<!-- 标题栏 -->
+	<view class="title-bar">
+		<text class="title">意见反馈</text>
+	</view>
+	<!-- 详细内容输入框 -->
+	<view class="input-section">
+		<textarea
+			class="content-input"
+			placeholder="请详细描述您的问题或建议（选填）"
+			value="{{ content }}"
+			bindinput="changeText"
+			auto-height
+			maxlength="500"
+		/>
+		<view class="word-count">{{content.length}}/500</view>
+	</view>
+	<!-- 图片上传区域 -->
+	<view class="upload-section">
+		<view class="upload-title">上传图片（最多3张）</view>
+		<view class="upload-container">
+			<view wx:for="{{ params.imgs }}" wx:key="index" class="image-item">
+				<image src="{{ item }}" mode="aspectFit" class="image-item" />
+				<view class="delete-icon" bindtap="deleteImage" data-index="{{ index }}">×</view>
+			</view>
+			<view
+				class="upload-button {{ params.imgs.length >= 3 ? 'disabled' : '' }}"
+				bindtap="chooseMedia"
+				disabled="{{ uploadedImages.length >= 3 }}"
+			>
+				<text class="upload-icon">+</text>
+			</view>
+		</view>
+	</view>
+	<!-- 提交按钮 -->
+	<view class="submit-section">
+		<button
+			class="submit-btn"
+			bindtap="submit"
+			loading="{{ isLoading }}"
+			disabled="{{ isLoading }}"
+		>提交反馈</button>
+	</view>
+</view>

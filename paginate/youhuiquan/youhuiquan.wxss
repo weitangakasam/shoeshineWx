@@ -1,0 +1,17 @@
+/* paginate/youhuiquan/youhuiquan.wxss */
+
+.scroll-view {
+
+}
+.lijian {
+  background: url("https://hubenjun-1311982940.cos.ap-nanjing.myqcloud.com/165389721280100001.jpg") no-repeat;
+  background-size:cover; color: #fff; padding: 16rpx; width: 150rpx; height: 80rpx; box-sizing: border-box;
+}
+
+.dizhi {
+  background: url("https://hubenjun-1311982940.cos.ap-nanjing.myqcloud.com/165389721363000002.jpg") no-repeat;
+  background-size:cover; color: #fff;padding: 16rpx; width: 150rpx; height: 80rpx; box-sizing: border-box;
+}
+.da {
+  width: 176rpx !important; height: 117rpx !important;
+}

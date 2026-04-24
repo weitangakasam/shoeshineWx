@@ -1,0 +1,349 @@
+/* 基础样式 */
+page {
+	background-color: #f5f7fa;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* 历史记录区域 */
+.history-container {
+	margin: 24rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	overflow: hidden;
+	box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.02);
+}
+
+.section-header {
+	display: flex;
+	align-items: center;
+	padding: 28rpx 32rpx;
+	border-bottom: 2rpx solid #f5f5f5;
+}
+
+.section-icon {
+	width: 36rpx;
+	height: 36rpx;
+	margin-right: 16rpx;
+}
+
+.section-title {
+	font-size: 32rpx;
+	font-weight: 600;
+	color: #333;
+}
+
+.history-scroll {
+	max-height: 400rpx;
+	padding: 0 32rpx;
+}
+
+.history-item {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 28rpx 0;
+	position: relative;
+	justify-content: space-between;
+}
+
+.history-item::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 2rpx;
+	background-color: #f5f5f5;
+}
+
+.history-item:last-child::after {
+	display: none;
+}
+
+.car-tag,
+.parking-tag {
+	display: flex;
+	align-items: center;
+	font-size: 28rpx;
+	color: #666;
+}
+
+.icon {
+	width: 32rpx;
+	height: 32rpx;
+	margin-right: 12rpx;
+}
+
+.car-num {
+	font-weight: bold;
+	color: #333;
+	margin-right: 24rpx;
+}
+
+.arrow {
+	width: 24rpx;
+	height: 24rpx;
+}
+
+/* 表单容器 */
+.form-container {
+	padding: 24rpx;
+	box-sizing: border-box;
+}
+
+.form-card {
+	background: #fff;
+	border-radius: 24rpx;
+	overflow: hidden;
+	margin-bottom: 24rpx;
+	box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.02);
+}
+
+.card-title {
+	display: flex;
+	align-items: center;
+	padding: 28rpx 32rpx;
+	font-size: 30rpx;
+	font-weight: 500;
+	color: #333;
+	border-bottom: 2rpx solid #f5f5f5;
+}
+
+.title-icon {
+	width: 36rpx;
+	height: 36rpx;
+	margin-right: 16rpx;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+	padding: 0 32rpx;
+}
+
+.input-icon {
+	width: 40rpx;
+	height: 40rpx;
+	margin-right: 16rpx;
+}
+
+.divider-line {
+	height: 2rpx;
+	background: linear-gradient(
+		90deg,
+		transparent 5%,
+		#f5f5f5 50%,
+		transparent 95%
+	);
+	margin: 0 32rpx;
+}
+
+/* 商品列表 */
+.goods-container {
+	background: #fff;
+	border-radius: 24rpx;
+	overflow: hidden;
+	box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.02);
+}
+
+.goods-list {
+	padding: 0 24rpx 24rpx;
+}
+
+.goods-item {
+	position: relative;
+	display: flex;
+	padding: 32rpx;
+	margin-top: 24rpx;
+	background-color: #fff;
+	border-radius: 16rpx;
+	border: 2rpx solid #eee;
+	transition: all 0.3s ease;
+}
+
+.goods-item.selected {
+	border-color: #07c160;
+	background-color: rgba(7, 193, 96, 0.05);
+}
+
+.goods-badge {
+	position: absolute;
+	top: -12rpx;
+	right: -12rpx;
+	background: #ff4d4f;
+	color: #fff;
+	font-size: 20rpx;
+	padding: 4rpx 12rpx;
+	border-radius: 20rpx;
+	z-index: 1;
+}
+
+.goods-content {
+	flex: 1;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.goods-info {
+	flex: 1;
+}
+
+.goods-title {
+	display: block;
+	font-size: 30rpx;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 8rpx;
+}
+
+.goods-desc {
+	font-size: 24rpx;
+	color: #999;
+}
+
+.goods-price {
+	display: flex;
+	align-items: baseline;
+	margin-left: 24rpx;
+}
+
+.price-symbol {
+	font-size: 24rpx;
+	color: #f44;
+	margin-right: 4rpx;
+}
+
+.price-num {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #f44;
+}
+
+.checkbox {
+	margin-left: 24rpx;
+}
+
+/* 底部按钮 */
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 20rpx 24rpx;
+	background-color: #fff;
+	box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.price-display {
+	flex: 1;
+	padding-left: 24rpx;
+	font-size: 28rpx;
+	color: #666;
+}
+
+.total-price {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #f44;
+	margin-left: 12rpx;
+}
+
+.submit-btn {
+	width: 400rpx;
+	height: 80rpx;
+	font-size: 32rpx;
+	font-weight: 500;
+	background: linear-gradient(90deg, #07c160, #05a14e);
+	border: none;
+}
+
+/* 调整Vant组件样式 */
+.van-field__label {
+	color: #666;
+	font-size: 28rpx;
+}
+
+/* 在原有样式基础上添加 */
+.history-item {
+	transition: all 0.3s ease;
+}
+
+.history-item:active {
+	transform: scale(0.98);
+	background-color: rgba(0, 0, 0, 0.03);
+	opacity: 0.9;
+}
+
+.van-field__control {
+	font-size: 28rpx;
+	color: #333;
+}
+
+.van-picker__toolbar {
+	height: 100rpx;
+}
+
+.van-picker__confirm {
+	color: #07c160;
+}
+.box {
+	margin-top: 20rpx;
+	display: grid;
+	padding-bottom: 170rpx;
+	grid-template-columns: repeat(2, 1fr);
+	box-sizing: border-box;
+	padding-left: calc(750rpx * 14 / 375);
+}
+
+.card {
+	width: calc(750rpx * 168 / 375);
+	background-color: #fff;
+}
+
+.card image {
+	width: calc(750rpx * 168 / 375);
+	height: calc(750rpx * 168 / 375);
+	border-top-right-radius: 16rpx;
+	border-top-left-radius: 16rpx;
+}
+
+.title {
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0px;
+	box-sizing: border-box;
+	padding: 0 calc(750rpx * 8 / 375);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	/*! autoprefixer: off */
+	-webkit-box-orient: vertical;
+}
+
+.price {
+	font-family: Alibaba PuHuiTi 3;
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 18px;
+	letter-spacing: 0px;
+	color: #f5535b;
+	box-sizing: border-box;
+}
+
+.line {
+	font-family: Alibaba PuHuiTi 3;
+	font-size: 11px;
+	font-weight: normal;
+	line-height: 13px;
+	letter-spacing: 0px;
+	text-decoration: line-through;
+	font-variation-settings: 'opsz' auto;
+	color: #b2b2b2;
+}

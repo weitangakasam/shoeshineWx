@@ -1,0 +1,43 @@
+<view class="evaluate-container">
+	<!-- 标题 -->
+	<!-- 星级评分 -->
+	<view class="rate-section">
+		<text class="rate-label">评分：</text>
+		<van-rate
+			value="{{ currentRating }}"
+			size="24"
+			gutter="10"
+			color="#ffb400"
+			void-color="#ebedf0"
+			bind:change="onRateChange"
+		/>
+		<text class="rate-text">{{ratingTexts[currentRating-1]}}</text>
+	</view>
+	<!-- 文字评价 -->
+	<van-field
+		label="评价内容"
+		type="textarea"
+		placeholder="请输入您的评价，您的意见对我们很重要~"
+		maxlength="200"
+		autosize
+		show-word-limit
+		value="{{ evaluationText }}"
+		bind:change="onInputEvaluation"
+		custom-style="background-color: #f9f9f9; border-radius: 16rpx; padding: 20rpx;"
+	/>
+	<van-uploader
+		bind:delete="deletePic"
+		file-list="{{ fileList }}"
+		bind:after-read="afterRead"
+		deletable="{{ true }}"
+	/>
+	<!-- 提交按钮 -->
+	<van-button
+		type="primary"
+		block
+		round
+		bind:click="submitEvaluation"
+		custom-class="submit-btn"
+	>提交评价</van-button>
+	<van-toast id="van-toast" />
+</view>

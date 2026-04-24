@@ -1,0 +1,38 @@
+<!-- 遮罩层 -->
+<view style="width: 100vw; height: 100vh; background: #000; opacity: 0.5; position: fixed; top: 0; left: 0;"
+  wx:if="{{hidden}}">
+</view>
+<page-container show="{{hidden}}" position="center" overlay="{{false}}" custom-style="height: auto;"
+  bind:beforeleave="close2">
+  <view wx:if="{{true}}"
+    style="background: #fff; z-index: 99; border-radius: 16rpx; width: 80vw; position: fixed; top: calc(50%); left: 50%; transform: translate(-50%, -50%);">
+    <view style="position: relative; padding: 20rpx; height: 100%; box-sizing: border-box; font-size: 30rpx;">
+      <!-- <view
+      style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+      bindtap="close" data-item="{{payInfo[showIndex]}}" wx:if="{{!payInfo[showIndex].isPayTime}}" >
+      <text class="iconfont icon-quxiao" style="font-size: 20rpx !important;margin: 0;"></text>
+    </view> -->
+      <view style="padding: 20rpx; font-weight: 550; font-size: 34rpx; text-align: center; margin: 0 0 10rpx 0">优惠券
+      </view>
+      <view style="margin: 0 0 50rpx 0;">
+        <view style="display: flex; flex-direction: column;align-items: center;">
+          <view class="yhq_bg2 {{item.voucher_rate[0] > 0 ? '' : 'da'}}"
+            style="width: 260rpx; height: 180rpx; font-size: 28rpx; text-align: center;position: relative;">
+            <view style="padding: 36rpx 0 0 0;">满<text
+                style="font-size: 34rpx; font-weight: 800;">{{info.full_money}}</text>元减<text
+                style="font-size: 30rpx; font-weight: 800;">{{info.minus_money}}</text>元
+            </view>
+            <view
+              style="position: absolute; bottom: 10rpx; left: 50%; transform: translate(-50%, 0); width: 100%; color: #fff;">
+              优惠券</view>
+          </view>
+        </view>
+      </view>
+      <view style="display: flex;">
+        <button class="app_btn" style="width: 100%; margin: 0 10rpx 16rpx 0;" bindtap="close" >确认领取</button>
+        <!-- <button class="app_btn" style="width: 100%; margin: 0 10rpx 16rpx 0;" bindtap="pay"
+          data-item="{{payInfo[showIndex]}}">立即支付</button> -->
+      </view>
+    </view>
+  </view>
+</page-container>
