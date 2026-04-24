@@ -1,0 +1,44 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<!-- 评价列表 -->
+<view class="review-list">
+	<!-- 评价统计头部 -->
+	<!-- 评价排序筛选 -->
+	<view class="review-filter">
+		<van-tag
+			wx:for="{{ filterOptions }}"
+			wx:key="value"
+			type="{{ activeFilter === item.value ? 'primary' : '' }}"
+			bind:tap="changeFilter"
+			data-value="{{ item.value }}"
+		>{{ item.label }}</van-tag>
+	</view>
+	<!-- 评价列表内容 -->
+	<view wx:if="{{ reviews.length > 0 }}">
+		<view class="review-item" wx:for="{{ reviews }}" wx:key="id">
+			<view class="user-info">
+				<image class="avatar" src="{{ item.avatar || '/images/default-avatar.png' }}" />
+				<text class="username">{{ item.username }}</text>
+			</view>
+			<view class="review-content">
+				<van-rate value="{{ item.mark }}" readonly size="14" />
+				<text class="review-text">{{ item.content=='undefined'?'暂无评价': item.content}}</text>
+				<view class="review-images" wx:if="{{ item.images.length > 0 }}">
+					<image
+						wx:for="{{ item.images }}"
+						wx:key="*this"
+						src="{{ item }}"
+						mode="aspectFill"
+						bind:tap="previewImage"
+						data-urls="{{ item.images }}"
+						data-index="{{ index }}"
+					/>
+				</view>
+				<text class="review-time">{{ item.time }}</text>
+			</view>
+		</view>
+		<!-- 分页加载 -->
+		<van-loading wx:if="{{ loading }}" size="24px">加载中...</van-loading>
+	</view>
+	<!-- 空状态 -->
+	<van-empty wx:else description="暂无评价" />
+</view>

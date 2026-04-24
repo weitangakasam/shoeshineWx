@@ -1,0 +1,8 @@
+{
+	"usingComponents": {
+		"van-rate": "@vant/weapp/rate/index",
+		"van-divider": "@vant/weapp/divider/index",
+		"van-empty": "@vant/weapp/empty/index",
+		"van-loading": "@vant/weapp/loading/index"
+	}
+}

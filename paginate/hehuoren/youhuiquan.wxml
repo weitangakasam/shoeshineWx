@@ -1,0 +1,23 @@
+<!--paginate/hehuoren/youhuiquan.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<view>
+  <view style="display: flex; flex-direction: column;align-items: center; padding: 30rpx; margin-bottom: 30rpx;">
+    <view class="yhq_bg2 {{item.voucher_rate[0] > 0 ? '' : 'da'}}"
+      style="width: 260rpx; height: 180rpx; font-size: 28rpx; text-align: center;position: relative;">
+      <view style="padding: 36rpx 0 0 0;">满<text
+          style="font-size: 34rpx; font-weight: 800;">{{info.full_money}}</text>元减<text
+          style="font-size: 30rpx; font-weight: 800;">{{info.minus_money}}</text>元
+      </view>
+      <view
+        style="position: absolute; bottom: 10rpx; left: 50%; transform: translate(-50%, 0); width: 100%; color: #fff;">
+        优惠券</view>
+    </view>
+  </view>
+  <view style="padding: 0 30rpx;">
+    <button class="app_btn"  hover-class="app_btn_hover" wx:if="{{info.is_coupon == 'n'}}"
+      bindtap="edit" data-type="y">开启</button>
+    <button class="app_btn"  hover-class="app_btn_hover" wx:if="{{info.is_coupon == 'y'}}"
+      bindtap="edit" data-type="n">关闭</button>
+  </view>
+
+</view>

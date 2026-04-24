@@ -1,0 +1,237 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<!-- 准备中 -->
+<block wx:if="{{ status == '准备中' }}">
+	<view class="progress app_bg" style="height: 100vh;">
+		<view
+			style="width: 80%; text-align: center; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%);"
+		>
+			<!-- <image src="https://xinhuikjgs.com/1649393379373.png" style="width: 90%; margin: 0 auto; border-radius: 40rpx;"
+        mode="widthFix"></image> -->
+			<view style="margin: 30rpx 0;">正在启动，请不要关闭小程序</view>
+			<progress
+				style="margin: 0 0 15rpx 0;"
+				percent="100"
+				duration="30"
+				active
+				stroke-width="3"
+				bindactiveend="handleProgress"
+			/>
+			<!-- <view>{{progress}}%</view> -->
+		</view>
+	</view>
+</block>
+<!-- 租借中 -->
+<block wx:if="{{ status == '待处理'||status=='处理中' }}">
+	<view class="rent">
+		<view class="top">
+			<view style="display: flex;align-items: flex-end;">
+				<view>{{status=='待处理'?'下单成功':status}}</view>
+				<view class="dot-loading">
+					<view class="dot"></view>
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+			</view>
+			<button
+				session-from=""
+				class="btn_lan"
+				hover-class="none"
+				open-type="contact"
+				style="display: flex;align-items: center;height: 70rpx; padding: 0 10rpx; margin: 0;"
+			>
+				<text class="iconfont icon-bangzhu" style="margin: 0 15rpx 0 0"></text>
+				<text style="font-size: 26rpx;">联系客服</text>
+			</button>
+			<button
+				session-from=""
+				class="btn_lan"
+				hover-class="none"
+				catch:tap="callPhone"
+				style="display: flex;align-items: center;height: 70rpx; padding: 0 10rpx; margin: 0;"
+			>
+				<text class="iconfont icon-bangzhu" style="margin: 0 15rpx 0 0"></text>
+				<text style="font-size: 26rpx;">联系管理员</text>
+			</button>
+		</view>
+		<view style="display: flex; justify-content: center;" wx:if="{{ false }}">
+			<image
+				src="https://xinhuikjgs.com/1649393379373.png"
+				style="width: 60%; border-radius: 40rpx;"
+				mode="widthFix"
+			></image>
+		</view>
+		<view
+			style="font-size: 30rpx; margin: 30rpx 0 30rpx 0; text-align: center;"
+			wx:if="{{ false }}"
+		>
+			请取出
+			<text style="font-weight: 550;">指示灯</text>
+			闪烁的充电宝
+		</view>
+		<!-- 卡片 -->
+		<view class="card">
+			<view class="card_title">
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-shijian" style="margin: 0 15rpx 0 0; color: #000;"></text>
+					{{timeMoney.time}}
+				</view>
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-jinqian" style="margin: 0 15rpx 0 0"></text>
+					{{timeMoney.price}}元
+				</view>
+			</view>
+			<view class="card_info">
+				<view>租借信息</view>
+				<view>
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">场所名称：</view>
+						<view style="flex: 1;">{{timeMoney.addr_name}}</view>
+					</view>
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">设备名称：</view>
+						<view style="flex: 1;">{{timeMoney.device_name}}</view>
+					</view>
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">位置地段：</view>
+						<view style="flex: 1;">{{timeMoney.addr_location}}</view>
+					</view>
+				</view>
+			</view>
+			<button
+				wx:if="{{ status=='待处理' }}"
+				size="default"
+				bindtap="exitMoney"
+				class="app_btn"
+				hover-class="app_btn_hover"
+				style="margin: 24rpx 0 0; height: 80rpx;border: 0; display: flex; align-items: center; justify-content: center;"
+			>退款</button>
+		</view>
+	</view>
+</block>
+<block wx:if="{{ status == '已完成' }}">
+	<view class="rent">
+		<view class="top">
+			<view style="display: flex; align-items: center;">
+				<view wx:if="{{ info.status == '已取消' }}" style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="info" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>异常订单已取消</text>
+				</view>
+				<view wx:elif="{{ info.status == '扣款中' }}" style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="info" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>扣款中</text>
+				</view>
+				<view wx:else style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="success" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>支付完成</text>
+				</view>
+			</view>
+			<button
+				open-type="contact"
+				class="btn_lan"
+				hover-class="none"
+				style="display: flex;align-items: center;height: 70rpx; padding: 0 10rpx;margin: 0;"
+			>
+				<!-- <text class="iconfont icon-bangzhu" style="margin: 0 15rpx 0 0"></text> -->
+				<text style="font-size: 26rpx;">需要帮助</text>
+			</button>
+		</view>
+		<!-- 卡片 -->
+		<view class="card">
+			<view class="card_title">
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-shijian" style="margin: 0 15rpx 0 0; color: #000;"></text>
+					{{returnInfo.time ||
+          0}}
+				</view>
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-jinqian" style="margin: 0 15rpx 0 0"></text>
+					{{returnInfo.money || 0}}元
+				</view>
+			</view>
+			<view class="card_info">
+				<view>订单信息</view>
+				<view>
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">订单金额</view>
+						<view style="flex: 1;">{{info.total_money}}元</view>
+					</view>
+					<!-- <view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+            <view style="width: 150rpx">优惠金额：</view>
+            <view style="flex: 1;">{{info.all_money}}元</view>
+          </view> -->
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">支付金额：</view>
+						<view style="flex: 1;">{{info.total_money}}元</view>
+					</view>
+				</view>
+			</view>
+			<!-- <button size="default" class="btn_lan" bindtap="zujie"
+      style="margin: 24rpx 0 0; height: 80rpx;border: 0; display: flex; align-items: center; justify-content: center;">
+        再次租借</button> -->
+		</view>
+	</view>
+</block>
+<block wx:if="{{ status == '等待图片审核' }}">
+	<view class="rent">
+		<view class="top">
+			<view style="display: flex; align-items: center;">
+				<view wx:if="{{ info.status == '已取消' }}" style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="info" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>异常订单已取消</text>
+				</view>
+				<view wx:elif="{{ info.status == '扣款中' }}" style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="info" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>扣款中</text>
+				</view>
+				<view wx:else style="display: flex; align-items: center;">
+					<icon class="icon-box-img" type="success" size="20" style="margin: 0 6rpx 0 0;"></icon>
+					<text>等待图片审核</text>
+				</view>
+			</view>
+			<button
+				open-type="contact"
+				class="btn_lan"
+				hover-class="none"
+				style="display: flex;align-items: center;height: 70rpx; padding: 0 10rpx;margin: 0;"
+			>
+				<!-- <text class="iconfont icon-bangzhu" style="margin: 0 15rpx 0 0"></text> -->
+				<text style="font-size: 26rpx;">需要帮助</text>
+			</button>
+		</view>
+		<!-- 卡片 -->
+		<view class="card">
+			<view class="card_title">
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-shijian" style="margin: 0 15rpx 0 0; color: #000;"></text>
+					{{returnInfo.time ||
+          0}}
+				</view>
+				<view style="display: flex; align-items: center;">
+					<text class="iconfont icon-jinqian" style="margin: 0 15rpx 0 0"></text>
+					{{returnInfo.money || 0}}元
+				</view>
+			</view>
+			<view class="card_info">
+				<view>订单信息</view>
+				<view>
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">订单金额</view>
+						<view style="flex: 1;">{{info.total_money}}元</view>
+					</view>
+					<!-- <view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+            <view style="width: 150rpx">优惠金额：</view>
+            <view style="flex: 1;">{{info.all_money}}元</view>
+          </view> -->
+					<view style="display: flex; align-items: center; flex-wrap: wrap; font-size: 26rpx;">
+						<view style="width: 150rpx">支付金额：</view>
+						<view style="flex: 1;">{{info.total_money}}元</view>
+					</view>
+				</view>
+			</view>
+			<!-- <button size="default" class="btn_lan" bindtap="zujie"
+      style="margin: 24rpx 0 0; height: 80rpx;border: 0; display: flex; align-items: center; justify-content: center;">
+        再次租借</button> -->
+		</view>
+	</view>
+</block>
+<kefu hidden="{{ hidden }}"></kefu>

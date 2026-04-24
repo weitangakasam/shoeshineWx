@@ -1,0 +1,348 @@
+<view>
+	<!-- tab -->
+	<view class="box">
+		<!-- <view class="search-box-bg app_bg_title">
+      <form action="" bindsubmit="search">
+        <view class="search-box">
+          <input type="text" name="search" placeholder="设备编号或名称" />
+          <button form-type="submit" class="app_btn">搜索</button>
+        </view>
+      </form>
+		</view>-->
+		<view class="main">
+			<view class="list" wx:for="{{ postdata }}" wx:key="index">
+				<view class="list_fl" style="flex: 1;">
+					<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+						<view style="width: 180rpx;">柜子IMEI：</view>
+						{{item.only_code}}
+					</view>
+					<view style="font-size: 30rpx; margin-bottom: 16rpx; color: #6a55de; display: flex;">
+						<view style="width: 180rpx;">柜门数量：</view>
+						{{item.box_door_num}}
+					</view>
+					<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+						<view style="width: 180rpx;">柜子名称：</view>
+						{{item.name}}
+					</view>
+					<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+						<view style="width: 180rpx;">柜子状态：</view>
+						{{item.status }}
+					</view>
+					<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+						<view style="width: 180rpx;">创建时间：</view>
+						{{item.create_time}}
+					</view>
+					<!-- <view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+            <view style="width: 150rpx;"> 状态：</view>{{item.status}}
+					</view>-->
+				</view>
+				<view class="list_center" style="color: #808080;" wx:if="{{ false }}">
+					<view>状态：{{item.status}}</view>
+					<!-- <view wx:if="{{type == '1'}}"><button class="btn_lan" style="margin: 6rpx 0 0; padding: 0; height: 60rpx;line-height: 60rpx;" bindtap="edit" data-item="{{item}}">修改</button></view> -->
+				</view>
+				<view class="list_fr">
+					<!-- <view class="iconfont icon-youjiantou" style="font-style: 200rpx; font-weight: 550;"></view> -->
+					<view>
+						<view>
+							<button
+								bindtap="edit"
+								class="app_btn"
+								data-box_gwid="{{ item.box_gwid }}"
+								hover-class="app_btn_hover"
+								style="font-size: 25rpx;"
+							>储物箱状态查询</button>
+						</view>
+						<view>
+							<button
+								bindtap="initializationDoorStatus"
+								class="app_btn"
+								data-item="{{ item }}"
+								hover-class="app_btn_hover"
+								style="margin-top: 20rpx;  font-size: 25rpx;"
+							>初始化储物箱状态</button>
+						</view>
+						<view>
+							<button
+								bindtap="opendoor"
+								class="app_btn"
+								data-item="{{ item }}"
+								hover-class="app_btn_hover"
+								style="margin-top: 20rpx;  font-size: 25rpx;"
+							>一键开启空储物箱</button>
+						</view>
+					</view>
+					<view>
+						<button
+							bindtap="lock_status_query"
+							class="app_btn"
+							data-box_gwid="{{ item.box_gwid }}"
+							hover-class="app_btn_hover"
+							style="margin-top: 20rpx;  font-size: 25rpx;"
+						>4G锁状态查询</button>
+					</view>
+					<view>
+						<button
+							bindtap="del"
+							class="app_btn"
+							data-item="{{ item }}"
+							hover-class="app_btn_hover"
+							style="margin-top: 20rpx;  font-size: 25rpx;"
+						>撤机</button>
+					</view>
+				</view>
+			</view>
+			<view
+				style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+				wx:if="{{ list.length == 0 }}"
+			>
+				<view class="iconfont icon-wushuju" style="font-size: 100rpx;" />
+				<text style="font-size: 30rpx;">暂无信息</text>
+			</view>
+		</view>
+		<view
+			catchtap="linkTo"
+			wx:if="{{ postdata.length === 0 }}"
+			class="position app_btn"
+			data-url="/paginate/add_box/add_box?id={{ net_site_id }}"
+		>
+			<text class="iconfont icon-jiahao" style="font-size: 40rpx;" />
+		</view>
+	</view>
+</view>
+<block wx:if="{{ isHuoDong }}">
+	<!-- 活动部分开始 -->
+	<view class="activity-container">
+		<view class="activity-title">{{ huo_dong_title }}</view>
+		<view bindtap="banbu" class="cancel-button">
+			<text class="iconfont icon-quxiao" />
+		</view>
+	</view>
+	<view class="status-data">
+		<block wx:for="{{ statusdata }}" wx:key="index">
+			<view class="status-item">
+				{{item[0]}}：{{item[1]}}
+				<block wx:if="{{ item[2] === index + 1 }}">
+					<button
+						bind:tap="unlock"
+						data-index="{{ item[2] }}"
+						data-box_gwid="{{ item[3] }}"
+						type="primary"
+					>开锁</button>
+				</block>
+			</view>
+		</block>
+	</view>
+	<!-- 活动部分结束 -->
+</block>
+<!-- 修改 遮罩层 -->
+<view
+	bindtap="edit_close"
+	class="add_zzc {{ isEdit ? 'add_zzc2' : '' }}"
+	wx:if="{{ isEdit }}"
+/>
+<view class="add_info {{ isEdit ? 'add_info2' : 'add_info' }}" wx:if="{{ true }}">
+	<view class="add_top">
+		<view>修改</view>
+		<view bindtap="edit_close">
+			<text class="iconfont icon-quxiao" />
+		</view>
+	</view>
+	<view style="padding: 30rpx; font-size: 30rpx;">
+		<form action bindsubmit="sure">
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*
+
+
+
+
+
+
+</text>
+					设备号
+				</view>
+				<view class="row_fr">
+					<input
+						bindinput="changeInput"
+						data-type="only_code"
+						disabled
+						name="only_code"
+						placeholder
+						type="text"
+						value="{{ editValue.only_code }}"
+					/>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					设备名称
+				</view>
+				<view class="row_fr">
+					<input
+						bindinput="changeInput"
+						data-type="name"
+						name="name"
+						placeholder="请输入设备名称"
+						type="text"
+						value="{{ editValue.name }}"
+					/>
+				</view>
+			</view>
+			<!-- <view class="row">
+        <view class="row_fl">
+          <text style="color:red;">*</text>选择场所
+        </view>
+        <view class="row_fr flex_sw">
+          <input type="text" disabled value="{{editValue.address}}" bindtap="select_changsuo" placeholder="请选择场所" />
+          <view class="iconfont icon-zhiyuandidian5"></view>
+        </view>
+			</view>-->
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					基础时间
+				</view>
+				<view class="row_fr flex_sw">
+					<input
+						bindinput="changeInput"
+						data-type="base_time_x"
+						name="base_time_x"
+						placeholder="请输入基础时间"
+						type="text"
+						value="{{ editValue.base_time_x }}"
+					/>
+					<view>分钟</view>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					基础价格
+				</view>
+				<view class="row_fr flex_sw">
+					<input
+						bindinput="changeInput"
+						data-type="price_y"
+						name="price_y"
+						placeholder="请输入基础价格"
+						type="text"
+						value="{{ editValue.price_y }}"
+					/>
+					<view>元</view>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					超时价格
+				</view>
+				<view class="row_fr flex_sw">
+					<input
+						bindinput="changeInput"
+						data-type="price_z"
+						name="price_z"
+						placeholder="请输入超时价格"
+						type="text"
+						value="{{ editValue.price_z }}"
+					/>
+					<view>元</view>
+				</view>
+			</view>
+			<!-- <view class="row">
+        <view class="row_fl">
+          <text style="color:red;">*</text>门数
+        </view>
+        <view class="row_fr flex_sw">
+          <picker mode="selector" style="width:100%;" bindchange="bindPickerChange" value="{{editValue.door_num}}"
+            range="{{typeArray}}">
+            <view class="picker" wx:if="{{editValue.door_num}}">
+              {{typeArray[editValue.door_num]}}
+            </view>
+            <view wx:else style="color: #808080;">请选择门数</view>
+          </picker>
+        </view>
+			</view>-->
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					绑定柜子
+				</view>
+				<view class="row_fr flex_sw">
+					<input
+						bindtap="select_changsuo"
+						disabled
+						placeholder="请选择绑定柜子"
+						type="text"
+						value="{{ editValue.address }}"
+					/>
+					<view class="iconfont icon-zhiyuandidian5" />
+				</view>
+			</view>
+			<view style="font-size: 24rpx; color: red; margin-bottom: 30rpx;">
+				提示: {{params.base_time_x ||
+		10}}分钟{{params.price_y
+		|| 20}}元，超过{{params.base_time_x || 10}}分钟之后 {{params.price_z || 3}}元每分钟
+			</view>
+			<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+				<button class="add_btn" form-type="submit" style="background: #4d6ef1;">确认保存</button>
+				<!-- <button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button> -->
+			</view>
+		</form>
+	</view>
+</view>
+<page-container show="{{ isSelect }}">
+	<view
+		class="add_info {{ isSelect ? 'add_info2' : 'add_info' }}"
+		style="position: relative; z-index: 999;"
+		wx:if="{{ true }}"
+	>
+		<view
+			class="add_top"
+			style="display: flex;justify-content: space-between; padding: 20rpx 30rpx 0;"
+		>
+			<view>选择场所</view>
+			<view bindtap="select_close">
+				<text class="iconfont icon-quxiao" />
+			</view>
+		</view>
+		<scroll-view
+			scroll-y
+			style="height: calc(90vh - 64rpx - {{ top }}rpx); padding: 30rpx 50rpx; box-sizing: border-box; font-size: 30rpx;"
+		>
+			<!-- <radio-group bindchange="radioChange"> -->
+			<view wx:for="{{ list_cs }}" wx:key="index">
+				<label
+					bindtap="changeRadio"
+					data-item="{{ item }}"
+					for
+					style="display: flex; border-bottom: 1rpx solid #cccccc; margin-bottom: 30rpx; justify-content: space-between; padding: 0 50rpx 0 0;"
+				>
+					<view>
+						<view style="margin: 30rpx 0 20rpx 0;">{{item.addr_name}}</view>
+						<view>{{item.addr_location}}</view>
+					</view>
+					<view style="display: flex; align-items: center;">
+						<radio checked="{{ item.id == info.address_id }}" value="{{ item.id }}" />
+					</view>
+				</label>
+			</view>
+			<!-- </radio-group> -->
+		</scroll-view>
+		<view
+			style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+			wx:if="{{ list.length == 0 }}"
+		>
+			<view class="iconfont icon-wushuju" style="font-size: 100rpx;" />
+			<text style="font-size: 30rpx;">暂无信息
+
+
+
+
+
+
+
+</text>
+		</view>
+	</view>
+</page-container>

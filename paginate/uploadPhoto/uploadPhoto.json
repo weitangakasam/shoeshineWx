@@ -1,0 +1,11 @@
+{
+	"usingComponents": {
+		"mp-uploader": "weui-miniprogram/uploader/uploader",
+		"fui-card": "/components/firstui/fui-card/fui-card",
+		"fui-button": "/components/firstui/fui-button/fui-button",
+		"mp-loading": "weui-miniprogram/loading/loading",
+		"mp-gallery": "weui-miniprogram/gallery/gallery",
+		"van-toast": "@vant/weapp/toast/index",
+		"van-dialog": "@vant/weapp/dialog/index"
+	}
+}

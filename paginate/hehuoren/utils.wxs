@@ -1,0 +1,14 @@
+module.exports.toArray = function (num) {
+	var res = [];
+	for (var i = 1; i < num + 1; ++i) {
+		res.push(i);
+	}
+	return res;
+};
+module.exports.subArray = function (i, num) {
+	var res = [];
+	for (; i < parseInt(num) + 1; ++i) {
+		res.push(i);
+	}
+	return res;
+};

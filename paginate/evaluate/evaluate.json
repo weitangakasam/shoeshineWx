@@ -1,0 +1,12 @@
+{
+	"titleBarColor": "#ecfae9",
+	"navigationBarTitleText": "服务评价",
+	"navigationStyle": "default",
+	"usingComponents": {
+		"van-rate": "@vant/weapp/rate/index",
+		"van-field": "@vant/weapp/field/index",
+		"van-button": "@vant/weapp/button/index",
+		"van-toast": "@vant/weapp/toast/index",
+		"van-uploader": "@vant/weapp/uploader/index"
+	}
+}

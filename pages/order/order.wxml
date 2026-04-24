@@ -1,0 +1,209 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="my-order">
+	<view class="header bg-color">
+		<view class="picTxt acea-row row-between-wrapper" style="flex:1">
+			<view class="text">
+				<!-- <view class='name'>订单信息</view> -->
+				<!-- <view>消费订单：{{orderData.order_count || 0}} 总消费：￥{{orderData.sum_price || 0}}</view> -->
+			</view>
+			<view class="pictrue">
+				<image src="/images/orderTime.png"></image>
+			</view>
+		</view>
+	</view>
+	<view class="nav acea-row row-around" style="display: flex;">
+		<view
+			class="item {{ orderStatus== 0 ? 'on' : '' }}"
+			data-status="0"
+			bindtap="statusClick"
+			style="flex:1"
+		>
+			<view>全部订单</view>
+			<!-- <view class='num'>{{orderData.unpaid_count || 0}}</view> -->
+		</view>
+		<!-- <view class='item {{orderStatus==3 ? "on": ""}}' data-status="3" bindtap="statusClick" style="flex: 1;">
+      <view>待付款</view>
+      <view class='num'>{{orderData.unpaid_count || 0}}</view>
+    </view> -->
+		<!-- <view class='item {{orderStatus== "PS_WAITTING" ? "on": ""}}' data-status="PS_WAITTING" bindtap="statusClick">
+      <view>待发货</view>
+      <view class='num'>{{orderData.unshipped_count || 0}}</view>
+    </view> -->
+		<view
+			class="item {{ orderStatus== 1 ? 'on' : '' }}"
+			data-status="1"
+			bindtap="statusClick"
+			style="flex:1"
+		>
+			<view>处理中</view>
+			<!-- <view class='num '>{{orderData.received_count || 0}}</view> -->
+		</view>
+		<view
+			class="item {{ orderStatus==2 ? 'on' : '' }}"
+			data-status="2"
+			bindtap="statusClick"
+			style="flex:1"
+		>
+			<view>已完成</view>
+			<!-- <view class='num'>{{orderData.evaluated_count || 0}}</view> -->
+		</view>
+	</view>
+	<scroll-view
+		scroll-y="true"
+		bindscrolltolower="handleBottom"
+		style="height: calc(100vh - 280rpx - {{ parameter.navH }}rpx);"
+	>
+		<view class="list">
+			<view class="item" wx:for="{{ orderList }}" wx:key="index">
+				<!-- bindtap='goOrderDetails' -->
+				<view data-order_id="{{ item.id }}">
+					<view
+						class="title acea-row row-between-wrapper"
+						style="display: flex; align-items: center;"
+					>
+						<view class="acea-row row-middle">
+							<text class="sign cart-color acea-row row-center-wrapper">{{item.status}}</text>
+						</view>
+						<view class="totalPrice">
+							<text class="money" wx:if="{{ item.status == '已退还' }}">费用合计￥{{item.money || 0}}</text>
+						</view>
+					</view>
+					<view class="item-info acea-row row-between row-top" style="font-size: 30rpx;">
+						<view style="display: flex;">
+							<view style="width: 160rpx;">设备名称：</view>
+							<view style="flex: 1;">{{item.site_name}}</view>
+						</view>
+						<view style="display: flex;">
+							<view style="width: 160rpx;">设备地址：</view>
+							<view style="flex: 1;">{{item.addr_location}}</view>
+						</view>
+						<view style="display: flex;">
+							<view style="width: 160rpx;">支付单号：</view>
+							<view style="flex: 1;">{{item.pay_code}}</view>
+						</view>
+						<view style="display: flex;">
+							<view style="width: 160rpx;">支付金额：</view>
+							<view style="flex: 1; color: red;">￥{{item.total_money}}</view>
+						</view>
+						<view style="display: flex;">
+							<view style="width: 160rpx;">订单编号：</view>
+							<view style="flex: 1; display: flex; align-items: center;">
+								<text style="margin: 0 30rpx 0 0;">{{item.pay_code}}</text>
+								<view
+									data-text="{{ item.pay_code }}"
+									catchtap="Paste"
+									style="width: 60rpx; color: #999; font-size: 24rpx;"
+								>复制</view>
+							</view>
+						</view>
+						<view style="display: flex;align-items: center;">
+							<view style="width: 160rpx;white-space: nowrap;">售后电话：</view>
+							<view>{{item.agent_mobile}}</view>
+							<view
+								data-phone="{{ item.agent_mobile }}"
+								catchtap="callPhone"
+								style="color: #999; font-size: 24rpx;"
+							>拨打电话</view>
+						</view>
+						<view wx:if="{{ item.begin_time }}" style="display: flex;">
+							<view style="width: 160rpx;">开始时间：</view>
+							<view style="flex: 1;">{{item.begin_time}}</view>
+						</view>
+						<view style="display: flex;">
+							<view style="width: 210rpx;">预计完成时间：</view>
+							<view style="flex: 1;">{{item.hope_time}}</view>
+						</view>
+						<view style="display: flex;" wx:if="{{ item.status != '处理中' && !!item.end_time }}">
+							<view style="width: 160rpx;">归还时间：</view>
+							<view style="flex: 1;">{{item.end_time}}</view>
+						</view>
+					</view>
+					<!-- <view class='item-info acea-row row-between row-top' wx:for="{{item.goods_info}}" wx:key>
+            <view class='pictrue'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='text acea-row row-between'>
+              <view class='name line2'>{{item.title}}</view>
+              <view class='money'>
+                <view wx:if="{{item.speces || item.attrs}}">{{item.speces}} {{item.attrs}}</view>
+                <view wx:else>￥{{item.price}}</view>
+                <view>x{{item.count}}</view>
+              </view>
+            </view>
+          </view> -->
+				</view>
+				<view class="bottom acea-row row-right row-middle">
+					<!-- <view catch:tap="refundOrder" class="cardbutton btn refund bg_red"  data-id="{{item.id}}"  data-event-type="jsPost" >申请售后</view> -->
+					<!-- <view class='bnt bg-color' catch:tap="delOrder" class="cardbutton btn bg_red"  data-id="{{item.id}}"  data-index = "{{index}}" data-event-type="jsPost" >删除</view> -->
+					<button
+						type="primary"
+						data-images="{{ item.images }}"
+						catch:tap="previewVideo"
+						wx:if="{{ item.images }}"
+					>取鞋图片</button>
+					<button
+						type="primary"
+						data-images="{{ item.images2 }}"
+						catch:tap="previewVideo"
+						wx:if="{{ item.images2 }}"
+					>洗鞋图片</button>
+					<button
+						type="primary"
+						data-images="{{ item.images3 }}"
+						catch:tap="previewVideo"
+						wx:if="{{ item.images3 }}"
+					>还鞋图片</button>
+					<button
+						type="primary"
+						data-order_id="{{ item.id }}"
+						catch:tap="exitMoney"
+						wx:if="{{ item.status =='待处理' }}"
+					>退款</button>
+					<button
+						data-images="{{ item.images }}"
+						catch:tap="previewVideo"
+						wx:if="{{ item.status === '已完成' }}"
+					>查看图片</button>
+					<button
+						wx:if="{{ item.status === '已完成' }}"
+						data-order_id="{{ item.id }}"
+						bind:tap="faultOpeningDoor"
+					>取钥匙</button>
+					<button
+						data-order_id="{{ item.id }}"
+						data-goods_id="{{ item.goods_id }}"
+						catch:tap="toReview"
+						wx:if="{{ (item.status === '已完成'||item.status =='已完结') && item.review_status=='待评价' }}"
+					>评价</button>
+					<button
+						wx:if="{{ item.cancle_open=='1' }}"
+						catch:tap="openDoor"
+						data-order_id="{{ item.id }}"
+					>开门</button>
+				</view>
+			</view>
+		</view>
+		<view class="noCart" wx:if="{{ orderList.length == 0 }}">
+			<view class="pictrue">
+				<image src="/images/noOrder.png"></image>
+			</view>
+		</view>
+	</scroll-view>
+	<view class="loadingicon acea-row row-center-wrapper" wx:if="{{ loading }}">
+		<text class="loading iconfont icon-jiazai" hidden="{{ loading==false }}"></text>
+		{{loadTitle}}
+	</view>
+</view>
+<navigator
+	style="width: 130rpx; height: 130rpx; position: fixed; right: 50rpx; bottom: 100rpx; font-size: 30rpx;border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 0 2rpx #ccc;"
+	url="/paginate/rent/rent"
+	wx:if="{{ isOrder }}"
+>当前订单</navigator>
+<authorize bind:onLoadFun="onLoadFun" iShidden="{{ iShidden }}"></authorize>
+<payment
+	payMode="{{ payMode }}"
+	pay_close="{{ pay_close }}"
+	bind:onChangeFun="onChangeFun"
+	order_id="{{ pay_order_id }}"
+	totalPrice="{{ totalPrice }}"
+></payment>

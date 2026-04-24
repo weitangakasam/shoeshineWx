@@ -1,0 +1,30 @@
+<navbar parameter="{{ parameter }}" />
+<view class="box">
+	<form action="" bindsubmit="submit">
+		<!-- <view class="row">
+      <view class="row_fl">
+        余额
+      </view>
+      <view class="row_fr">
+        <input type="text" name="code" placeholder="请输入兑换码" />
+        ¥{{userInfo.pay_yajin}}
+      </view>
+    </view> -->
+		<view class="row">
+			<view class="row_fl">剩余押金</view>
+			<view class="row_fr">
+				<!-- <input type="text" name="code" placeholder="请输入兑换码" /> -->
+				¥{{userInfo.yajin_money}}
+			</view>
+			<!-- <button style="flex: 2;background: #4bdf27; color: #fff; font-size: 30rpx; margin: 0;  width: 20px;height: 100%;" bindtap="submitTixian">提现</button> -->
+		</view>
+		<view class="row">
+			<view class="row_fl">平台需缴纳押金</view>
+			<view class="row_fr">
+				<!-- <input type="text" name="code" placeholder="请输入兑换码" /> -->
+				¥{{userInfo.yajin_money > ya_jin ? 0 : ya_jin - userInfo.yajin_money}}
+			</view>
+			<button style="flex: 2;background: #4bdf27; color: #fff; font-size: 30rpx; margin: 0;  width: 20px;height: 100%;" form-type="submit">缴纳押金</button>
+		</view>
+	</form>
+</view>

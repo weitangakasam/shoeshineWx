@@ -1,0 +1,170 @@
+<import src="../../wxParse/wxParse.wxml"></import>
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="charge_info">
+	<!-- 轮播图 -->
+	<view style="padding: 30rpx; position:relative;">
+		<view style="font-size: 36rpx; font-weight: 550; margin: 0 0 20rpx" wx:if="{{ false }}">
+			<text>自带三线</text>
+			<text style="color: #2bd966;">适配所有手机</text>
+		</view>
+		<view style="color: #808080;" wx:if="{{ false }}">
+			<text>苹果 · Type-C · 安卓</text>
+		</view>
+		<view style="width: 370rpx; margin: 30rpx auto">
+			<image mode="widthFix" style="width: 100%" src="/paginate/img/charge.png" />
+		</view>
+	</view>
+	<!-- 充电宝信息 -->
+	<view class="fixed">
+		<view class="row">
+			<view class="row_fl">
+				<view class="iconfont icon-dingwei"></view>
+			</view>
+			<view class="row_fr">
+				<view>{{info.name}}</view>
+				<view>{{info.addr_location || '信息异常'}}</view>
+			</view>
+		</view>
+		<view wx:if="{{ 0 }}" class="row" style="margin-bottom: 26rpx">
+			<view class="row_fl">
+				<view class="iconfont icon-chongzhi0101"></view>
+			</view>
+			<view class="row_fr" style="display: flex; justify-content: space-between; align-items: center;">
+				<view>押金 ￥{{ ya_jin }}</view>
+				<view>
+					<radio-group bindchange="yagree">
+						<radio checked="{{ payCode }}"></radio>
+					</radio-group>
+				</view>
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<view class="iconfont icon-qian1"></view>
+			</view>
+			<view class="row_fr">
+				<view>{{money || 0.01}}元/{{time}}分钟</view>
+				<view style="margin: 6rpx 0 0 0">{{free_time}}分钟内归还免费,超出{{free_time}}分钟计入收费时长</view>
+				<view style="margin: 6rpx 0 0 0; font-size: 24rpx; color: #808080;">不足{{time}}分钟按{{time}}分钟计算</view>
+				<view style="margin: 6rpx 0 0 0; font-size: 24rpx; color: #808080;">
+					<!-- 押金200元，支持免押服务 -->
+					租借最长时间为2天，请及时归还
+				</view>
+			</view>
+		</view>
+		<view class="row" style="margin-bottom: 26rpx">
+			<view class="row_fl">
+				<view class="iconfont icon-zhima-chongdianbao"></view>
+			</view>
+			<view class="row_fr">
+				<view>设备工具，原柜门借还</view>
+			</view>
+		</view>
+		<!-- <view class="row" style="margin-bottom: 26rpx">
+      <view class="row_fl">
+        <view class="iconfont icon-zhima-chongdianbao">
+        </view>
+      </view>
+
+      <view class="row_fr">
+        <view>
+          支付方式
+        </view>
+
+      <view class="change">
+  <radio-group class="block lang_btn" bindchange="changeLanguage">
+    <view class="cu-form-group margin-top">
+      <view class="left_v">
+        <view class="title">微信支付分|免充值</view>
+      </view>
+      <radio checked="{{lang=='1'?true:false}}" value='1'></radio>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="left_v">
+        <view class="title">押金支付( 剩余押金0)</view>
+      </view>
+      <radio checked="{{lang=='2'?true:false}}" value='2'></radio>
+    </view>
+  </radio-group>
+</view>
+
+      </view>
+
+    </view> -->
+		<!-- 协议 -->
+		<view class="xieyi">
+			<view class="update">
+				<view>相关协议已更新， 请查看</view>
+			</view>
+			<fui-checkbox-group name="checkbox" bindchange="change">
+				<view class="fui-list__item">
+					<fui-label>
+						<view class="fui-align__center">
+							<fui-checkbox checked="{{ isAgree }}" value="1"></fui-checkbox>
+							<view class="protocol">
+								<text>点击同意</text>
+								<text bindtap="isHidden" data-text="user_agreement">《用户协议》</text>
+								<text bindtap="isHidden" data-text="privacy_policy"> 《隐私政策》</text>
+							</view>
+						</view>
+					</fui-label>
+				</view>
+			</fui-checkbox-group>
+		</view>
+		<button wx:if="{{ 0 }}" size="default" type="primary" class="zujie" data-type="goPages" bindtap="goPages">
+			<view style="height: 30rpx; line-height: 30rpx;">免押金租借</view>
+			<view style="display: flex; align-items: center; justify-content: center;">
+				<image src="/paginate/img/lan.png" style="width: 50rpx; height: 50rpx; margin: 0 6rpx 0 0;"></image>
+				微信支付分 |
+				550分及以上优享
+			</view>
+		</button>
+		<button size="default" type="primary" class="zujie" data-type="goPages1" bindtap="goPages1" style="margin-top: 10px;">
+			<view style="height: 30rpx; line-height: 30rpx;">押金支付 ¥{{ ya_jin }}</view>
+			<view style="display: flex; align-items: center; justify-content: center;">
+				<image src="/paginate/img/lan.png" style="width: 50rpx; height: 50rpx; margin: 0 6rpx 0 0;"></image>
+				剩余押金 |
+				¥{{userInfo.yajin_money}}
+			</view>
+		</button>
+	</view>
+	<!-- 用户协议 --  隐私政策 -->
+	<page-container show="{{ !hidden }}" round bind:beforeleave="beforeleave">
+		<view class="fuwenben app_ios" style="max-height: 100vh; overflow-y: auto;">
+			<view style="position: fixed; right: 40rpx;">
+				<text class="iconfont icon-quxiao" bindtap="isHidden"></text>
+			</view>
+			<block wx:if="{{ isSelectProduct }}">
+				<view style="padding-top: 40rpx;">
+					<radio-group class="radio-group" bindchange="radioChange">
+						<view class="attr_value">
+							<radio class="radio" value="A" checked="{{ product==='A' }}">
+								<view style="display: flex;align-items: center; gap: 20rpx;flex-direction: column;">
+									<view>{{info.product_a}}</view>
+									<image class="" src="/images/yang.png" mode="heightFix" style="height: 32vh" lazy-load="false" binderror="" bindload=""></image>
+								</view>
+							</radio>
+							<radio class="radio" value="B" checked="{{ product==='B' }}">
+								<view style="display: flex;align-items: center; gap: 20rpx;flex-direction: column;">
+									{{info.product_b}}
+									<image class="" src="/images/guang.png" mode="heightFix" style="height: 32vh" lazy-load="false" binderror="" bindload=""></image>
+								</view>
+							</radio>
+						</view>
+					</radio-group>
+					<view style="display: flex;">
+						<button bind:tap="confrim" type="primary">确认</button>
+						<button bindtap="isHidden" type="warn">取消</button>
+					</view>
+				</view>
+			</block>
+			<block wx:else>
+				<view style="padding-top: 40rpx;">
+					<template is="wxParse" data="{{ wxParseData:user_agreement.nodes }}" wx:if="{{ nodes == 'user_agreement' }}"></template>
+					<template is="wxParse" data="{{ wxParseData:privacy_policy.nodes }}" wx:if="{{ nodes == 'privacy_policy' }}"></template>
+				</view>
+			</block>
+		</view>
+	</page-container>
+</view>
+<authorize iShidden="{{ iShidden }}" bind:onLoadFun="onLoadFun"></authorize>

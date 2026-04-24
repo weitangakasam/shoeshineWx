@@ -1,0 +1,459 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="tab-content-item app_ios">
+	<view wx:if="{{ false }}" class="header f-28 col-3">
+		<!-- <view catchtap="bindHeaderTap" class="{{dataType==='全部'?'active':''}}" data-type="全部">
+      <text>全部</text>
+    </view> -->
+		<view
+			bindtap="bindHeaderTap"
+			class="{{ dataType==='售货机'?'active':'' }}"
+			data-type="售货机"
+		>
+			<text>售货机</text>
+		</view>
+		<view
+			bindtap="bindHeaderTap"
+			class="{{ dataType==='租赁机'?'active':'' }}"
+			data-type="租赁机"
+		>
+			<text>租赁机</text>
+		</view>
+		<!-- <view bindtap="bindHeaderTap" class="{{dataType==='FINISHED'?'active':''}}" data-type="FINISHED">
+      <text>待评价</text>
+    </view> -->
+	</view>
+	<!-- 订单列表 -->
+	<view class="goods-detail-box">
+		<view
+			style="background: #f5f5f5; border-radius: 16rpx; margin: 20rpx 0 0; padding: 30rpx; display: flex; justify-content: space-between;"
+		>
+			<view>
+				<picker mode="date" value="{{ date }}" bindchange="bindDateChange">
+					<view wx:if="{{ !date }}" style="margin-bottom: 15rpx; font-size: 28rpx;">请选择查询开始日期</view>
+					<view wx:else style="margin-bottom: 15rpx; font-size: 28rpx;">查询开始日期: {{date}}</view>
+				</picker>
+				<picker mode="date" value="{{ date2 }}" bindchange="bindDateChange2">
+					<view wx:if="{{ !date2 }}" style="margin-bottom: 15rpx; font-size: 28rpx;">请选择查询结束日期</view>
+					<view wx:else style="margin-bottom: 15rpx; font-size: 28rpx;">查询结束日期: {{date2}}</view>
+				</picker>
+				<view>
+					<picker
+						mode="selector"
+						value="{{ statusArrIndex }}"
+						range="{{ statusArr }}"
+						bindchange="bindPickerChange3"
+					>
+						<view style="font-size: 28rpx;">查询状态：{{statusArr[statusArrIndex]}}</view>
+					</picker>
+				</view>
+			</view>
+			<view>
+				<button class="app_btn" hover-class="app_btn_hover" bindtap="search">搜索</button>
+			</view>
+		</view>
+		<view wx:if="{{ orderList.length > 0 }}">
+			<!-- <view class="wrapper" wx:if="{{orderList.length > 0}}"> -->
+			<view class="wrapper">
+				<!-- <view wx:if="{{list.length}}"> -->
+				<view
+					class="m-top20"
+					wx:for="{{ orderList }}"
+					wx:key="this"
+					catchtap="navigateToDetail"
+					data-id="{{ item.order_id }}"
+					style="background: #fff; margin-bottom: 16rpx;"
+				>
+					<view class="order-box b-f">
+						<view class="order-header dis-flex">
+							<view class="flex-box t-l">
+								<text class="title">{{item.device_name}}</text>
+							</view>
+							<view class="flex-box t-r">
+								<text class="cont">{{item.status}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="order-box b-f">
+						<view class="order-cont dis-flex">
+							<view class="order-num">
+								<text>订单号：{{item.pay_code}}</text>
+							</view>
+							<view class="order-time">
+								<text wx:if="{{ dataType != '租赁机' }}">{{item.create_time}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="order-box order-img_list" wx:if="{{ dataType == '售货机1' }}">
+						<view class="order-shop">
+							<view class="order-list-box dis-flex">
+								<view class="left">
+									<view class="dis-flex">
+										<view class="order-shop-left">
+											<image src="{{ item.goods_img }}"></image>
+										</view>
+									</view>
+								</view>
+								<view class="right dis-flex flex-x-center flex-y-center">
+									<text class="goods-number">共{{item.count}}件</text>
+									<text class="iconfont icon-xiangyoujiantou user-orderJtou"></text>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="order-box order-img_list">
+						<view class="order-shop">
+							<view class="order-list-box dis-flex">
+								<view class="left" style="color: #808080;">
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">用户名：</view>
+										<view style="flex: 1;">{{item.realname}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">手机号：</view>
+										<view style="flex: 1;">{{item.user_mobile}}</view>
+										<view catch:tap="callphone" data-phone="{{ item.user_mobile }}">拨打电话</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status != '待付款' }}"
+									>
+										<view style="width: 160rpx;">开始时间：</view>
+										<view style="flex: 1;">{{item.begin_time}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status == '已完成' }}"
+									>
+										<view style="width: 160rpx;">结束时间：</view>
+										<view style="flex: 1;">{{item.back_time}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status == '已完成' }}"
+									>
+										<view style="width: 160rpx;">归还时间：</view>
+										<view style="flex: 1;">{{item.end_time}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status != '待付款' }}"
+									>
+										<view style="width: 160rpx;">租赁柜门：</view>
+										<view style="flex: 1;">{{item.door}}号</view>
+									</view>
+									<!-- <view class="dis-flex" style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"wx:if="{{item.status != '待付款'}}">
+                    <view style="width: 160rpx;">分成比例：</view> <view style="flex: 1;">{{item.rate}}</view>
+                  </view> -->
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status != '待付款' }}"
+									>
+										<view style="width: 160rpx;">支付金额：</view>
+										<view style="flex: 1;">{{item.total_money}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+										wx:if="{{ item.status != '待付款' }}"
+									>
+										<view style="width: 160rpx;">代理手机：</view>
+										<view style="flex: 1;">{{item.agent_mobile}}</view>
+									</view>
+									<!-- <view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">楼层：</view>
+										<view style="flex: 1;">{{item.parking_msg}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">车牌号</view>
+										<view style="flex: 1;">{{item.car_num}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">车位号</view>
+										<view style="flex: 1;">{{item.position}}</view>
+									</view> -->
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">代理用户：</view>
+										<view style="flex: 1;">{{item.agent_username}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">位置：</view>
+										<view style="flex: 1;">{{item.addr_location}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">场所名称：</view>
+										<view style="flex: 1;">{{item.addr_name}}</view>
+									</view>
+									<view
+										class="dis-flex"
+										style="font-size: 30rpx;margin: 0 0 6rpx; display: flex; flex-wrap: wrap;"
+									>
+										<view style="width: 160rpx;">身份：</view>
+										<view style="flex: 1;">{{item.role_name}}</view>
+									</view>
+								</view>
+								<view class="right dis-flex flex-x-center flex-y-center">
+									<!-- <text class="goods-number">共{{item.count}}件</text>
+                  <text class="iconfont icon-xiangyoujiantou user-orderJtou"></text> -->
+								</view>
+							</view>
+						</view>
+					</view>
+					<!-- <view class="order-box b-f">
+                  <view class="order-cont dis-flex">
+                    <view class="order-num">
+                      <text>序列号 : {{item.goods[0].ordercode}}</text>
+                    </view>
+                  </view>
+                </view> -->
+					<view class="order-box b-f">
+						<view
+							class="order-btn dis-flex"
+							style="display: flex; justify-content: space-between;"
+						>
+							<view class="order-left">
+								<!-- <view class="text">
+                  <text>分成金额：</text>
+                  <text class="col-m">￥{{item.awards}}</text>
+                </view> -->
+							</view>
+						</view>
+						<view style="display: flex;gap: 20rpx;">
+							<van-button
+								data-type="接单"
+								catch:tap="showTimePicker"
+								data-order_id="{{ item.order_id }}"
+								data-id="{{ item.order_id }}"
+								wx:if="{{ item.status =='待处理' }}"
+								type="primary"
+							>接单</van-button>
+							<van-button
+								data-type="{{ item.status }}"
+								catch:tap="openLock"
+								data-only_code="{{ item.only_code }}"
+								data-door="{{ item.door }}"
+								data-order_id="{{ item.order_id }}"
+								data-id="{{ item.order_id }}"
+								wx:if="{{ item.status !='已完成' }}"
+								type="primary"
+							>开柜门</van-button>
+							<van-button
+								catch:tap="finishOrder"
+								data-order_id="{{ item.order_id }}"
+								wx:if="{{ item.status =='处理中' }}"
+								type="danger"
+							>上传图片</van-button>
+							<van-button
+								catch:tap="finish"
+								data-images="{{ item.images }}"
+								data-images2="{{ item.images2 }}"
+								data-images3="{{ item.images3 }}"
+								data-order_id="{{ item.order_id }}"
+								wx:if="{{ item.status =='处理中' }}"
+								type="danger"
+							>完成订单</van-button>
+						</view>
+						<view class="order-right" style="flex: 5;">
+							<view class="btn-group dis-flex" wx:if="{{ item.status != '待付款' }}">
+								<view style="display: flex; justify-content: flex-end;">
+									<view
+										class="btn-default"
+										data-id="{{ item.order_id }}"
+										style="margin: 0 10rpx 0 10rpx"
+									>
+										<button open-type="contact" class="btn_kefu" style="color: #999; background: #fff;">客服</button>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view
+			wx:else
+			style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;"
+		>
+			<view
+				class="yoshop-notcont"
+				style="display: flex; flex-direction: column;align-items: center;"
+			>
+				<text class="iconfont icon-wushuju" style="font-size: 100rpx;"></text>
+				<text class="cont">亲，您还没有订单信息哦！</text>
+			</view>
+		</view>
+		<view wx:if="{{ no_more }}" class="no-more f-30" style="text-align: center;">亲, 没有更多了</view>
+	</view>
+</view>
+<!-- 填写物流信息 -->
+<view
+	wx:if="{{ isSetInfo }}"
+	style="position: fixed; top: 0; left: 0; height: 100vh; box-sizing: border-box;"
+>
+	<view
+		style="background: #000; opacity: 0.3; width: 100vw; height: 100vh; overflow: hidden;"
+	></view>
+	<form
+		bindsubmit="submitSetInfo"
+		style="width: 600rpx; z-index: 999; padding: 30rpx; box-sizing: border-box;  background: #f5f5f5; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 20rpx; overflow: hidden; font-size: 30rpx;"
+	>
+		<view style="margin: 0 0 30rpx 0;">
+			<textarea
+				style="width: 100%; min-height: 90rpx; background: #fff;"
+				bindblur="bindTextAreaBlur"
+				auto-height
+				placeholder="请输入申诉内容"
+			/>
+		</view>
+		<view style="display: flex;">
+			<button style="background: #fd4a5f; font-size: 30rpx;color: #f5f5f5;" formType="submit">确定</button>
+			<button
+				style="background: #fd4a5f; font-size: 30rpx;color: #f5f5f5;"
+				bindtap="cancelSetInfo"
+			>取消</button>
+		</view>
+	</form>
+</view>
+<!-- 加工信息 -->
+<view
+	wx:if="{{ isReadInfo }}"
+	style="position: fixed; top: 0; left: 0; height: 100vh; box-sizing: border-box;"
+>
+	<view
+		style="background: #000; opacity: 0.3; width: 100vw; height: 100vh; overflow: hidden;"
+	></view>
+	<form
+		bindsubmit="submitSetInfo"
+		style="width: 600rpx; z-index: 999; padding: 30rpx; box-sizing: border-box;  background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 20rpx; overflow: hidden; font-size: 30rpx;"
+	>
+		<view style="margin: 0 0 30rpx 0; display: flex;">
+			<view style="margin: 0 30rpx 0 0; width: 180rpx; text-align: right;">姓名：</view>
+			<view>{{readInfo.name}}</view>
+		</view>
+		<view style="margin: 0 0 30rpx 0; display: flex;">
+			<view style="margin: 0 30rpx 0 0; width: 180rpx; text-align: right;">手机号：</view>
+			<view>{{readInfo.mobile}}</view>
+		</view>
+		<view style="margin: 0 0 30rpx 0; display: flex;">
+			<view style="margin: 0 30rpx 0 0; width: 180rpx; text-align: right;">地址：</view>
+			<view>{{readInfo.addr}}</view>
+		</view>
+		<view style="margin: 0 0 30rpx 0; display: flex;">
+			<view style="margin: 0 30rpx 0 0; width: 180rpx; text-align: right;">加工方姓名：</view>
+			<view>{{readInfo.shopname}}</view>
+		</view>
+		<view style="display: flex;">
+			<button
+				style="background: #fd4a5f; font-size: 30rpx;color: #f5f5f5;"
+				bindtap="cancelSetInfo"
+			>关闭</button>
+			<!-- <button formType="submit">确定</button> -->
+		</view>
+	</form>
+</view>
+<!-- 加工物流信息 -->
+<view
+	wx:if="{{ isSkQrcode }}"
+	style="position: fixed; top: 0; left: 0; height: 100vh; box-sizing: border-box;"
+>
+	<view
+		style="background: #000; opacity: 0.3; width: 100vw; height: 100vh; overflow: hidden;"
+	></view>
+	<form
+		bindsubmit="submitSetInfo"
+		style="width: 600rpx; z-index: 999; padding: 30rpx; box-sizing: border-box;  background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 20rpx; overflow: hidden; font-size: 30rpx;"
+	>
+		<image
+			mode="widthFix"
+			style="width: 70%; display: block; margin: 0 auto 30rpx;"
+			src="{{ skQrcodeInfo }}"
+		></image>
+		<view style="display: flex;">
+			<button
+				style="background: #fd4a5f; font-size: 30rpx;color: #f5f5f5;"
+				bindtap="cancelSetInfo"
+			>关闭</button>
+			<!-- <button formType="submit">确定</button> -->
+		</view>
+	</form>
+</view>
+<!-- CAD地址 -->
+<view
+	wx:if="{{ isCadInfo }}"
+	style="position: fixed; top: 0; left: 0; height: 100vh; box-sizing: border-box;"
+>
+	<view
+		style="background: #000; opacity: 0.3; width: 100vw; height: 100vh; overflow: hidden;"
+	></view>
+	<form
+		bindsubmit="submitSetInfo"
+		style="width: 600rpx; z-index: 999; padding: 30rpx; box-sizing: border-box;  background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 20rpx; overflow: hidden;"
+	>
+		<view style="margin: 0 0 30rpx 0; display: flex;" wx:for="{{ cadInfo }}">
+			<view
+				style="word-break:break-all; font-size: 30rpx; color: #777;"
+				bindtap="copy"
+				data-value="{{ item }}"
+			>{{item}}</view>
+		</view>
+		<view style="display: flex;">
+			<button
+				style="background: #fd4a5f; font-size: 30rpx;color: #f5f5f5;"
+				bindtap="cancelSetInfo"
+			>关闭</button>
+			<!-- <button formType="submit">确定</button> -->
+		</view>
+	</form>
+</view>
+<!-- 返回顶部 -->
+<view class="goTop" bindtap="goTop" wx:if="{{ isTop }}">↑</view>
+<!-- 支付弹窗 -->
+<payment
+	payMode="{{ payMode }}"
+	pay_close="{{ pay_close }}"
+	bind:onChangeFun="onChangeFun"
+	pay_code="{{ pay_code }}"
+	order_id="{{ pay_order_id }}"
+	totalPrice="{{ totalPrice }}"
+></payment>
+<van-popup close-on-click-overlay bind:close="onClose" show="{{ show }}" position="bottom">
+	<van-datetime-picker
+		show-toolbar
+		title="预计完成时间"
+		bind:cancel="closeTimePicker"
+		type="datetime"
+		value="{{ currentDate }}"
+		min-hour="{{ minHour }}"
+		max-hour="{{ maxHour }}"
+		bind:confirm="onTimeChange"
+	/>
+</van-popup>
+<van-dialog id="van-dialog" />

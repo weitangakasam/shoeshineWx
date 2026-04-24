@@ -1,0 +1,16 @@
+/* pages/user/jianyi.wxss */
+.list-box{
+  padding: 20rpx;
+}
+.item{
+  padding:20rpx 0;
+  border-bottom:1px solid gainsboro;
+}
+.title{
+  padding:0px 10rpx;
+}
+.time{
+  padding:0px 10rpx;
+  text-align: right;
+  font-size: 20rpx;
+}

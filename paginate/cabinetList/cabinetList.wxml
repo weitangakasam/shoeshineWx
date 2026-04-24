@@ -1,0 +1,155 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<block wx:for="{{ list }}" wx:key="index">
+	<view style="margin-top: 20rpx;">
+		<fui-list>
+			<fui-list-cell highlight="{{ false }}">
+				<text>门号</text>
+				<text class="fui-text__explain">{{ item.door }}</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>门锁状态</text>
+				<text class="fui-text__explain">{{ item.door_status }}</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>押金金额</text>
+				<text class="fui-text__explain">{{ item.ya_jin }}元</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>免费分钟数</text>
+				<text class="fui-text__explain">{{ item.free_time }}分钟</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>计费周期</text>
+				<text class="fui-text__explain">{{ item.time }}分钟</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>周期单价</text>
+				<text class="fui-text__explain">{{ item.money }}</text>
+			</fui-list-cell>
+			<fui-list-cell highlight="{{ false }}">
+				<text>图片详情</text>
+				<fui-avatar data-url="{{ item.img }}" bind:click="pImage" src="{{ item.img }}"></fui-avatar>
+			</fui-list-cell>
+			<!-- <fui-list-cell highlight="{{ false }}"><text>电源名称</text>
+				<text class="fui-text__explain">{{ item.power_name }}</text>
+			</fui-list-cell> -->
+			<fui-list-cell highlight="{{ false }}">
+				<text>操作</text>
+				<fui-button data-item="{{ item }}" catch:click="op" text="编辑" width="{{ 200 }}rpx"></fui-button>
+				<fui-button data-item="{{ item }}" catch:click="openLock" text="开锁" width="{{ 140 }}rpx"></fui-button>
+			</fui-list-cell>
+		</fui-list>
+	</view>
+</block>
+<mp-dialog
+	title="提示"
+	show="{{ showDialog }}"
+	bindbuttontap="tapDialogButton"
+	buttons="{{ [{ text: '取消' },{ text: '确定' }] }}"
+>
+	<view>{{ dialogText }}</view>
+</mp-dialog>
+<!--案例一-->
+<fui-bottom-popup show="{{ formShow }}" bindclose="closePopup" maskClosable="{{ true }}">
+	<view class="fui-popup__container">
+		<text class="fui-title">编辑 </text>
+		<view style="max-height: 50vh;">
+			<scroll-view style="max-height: 50vh;" type="list" scroll-y>
+				<mp-form id="form">
+					<mp-cells title="">
+						<label>
+							<mp-cell prop="ya_jin" title="型号" ext-class="ti">
+								<input
+									value="{{ formValue.door_name }}"
+									name="door_name"
+									bindinput="formInputChange"
+									data-field="door_name"
+									class="weui-input"
+									placeholder="请输入型号"
+								/>
+							</mp-cell>
+						</label>
+						<label>
+							<mp-cell prop="ya_jin" footer="元" title="押金" ext-class="ti">
+								<input
+									value="{{ formValue.ya_jin }}"
+									name="ya_jin"
+									bindinput="formInputChange"
+									data-field="ya_jin"
+									class="weui-input"
+									placeholder="请输入押金"
+								/>
+							</mp-cell>
+						</label>
+						<label>
+							<mp-cell prop="ya_jin" footer="分钟" title="免费分钟数" ext-class="ti">
+								<input
+									value="{{ formValue.free_time }}"
+									name="free_time"
+									bindinput="formInputChange"
+									data-field="free_time"
+									class="weui-input"
+									placeholder="请输入免费分钟数"
+								/>
+							</mp-cell>
+						</label>
+						<label>
+							<mp-cell prop="ya_jin" footer="分钟" title="计费周期" ext-class="ti">
+								<input
+									value="{{ formValue.time }}"
+									name="time"
+									bindinput="formInputChange"
+									data-field="time"
+									class="weui-input"
+									placeholder="请输入计费周期"
+								/>
+							</mp-cell>
+						</label>
+						<label>
+							<mp-cell prop="ya_jin" title="周期单价" ext-class="ti">
+								<input
+									value="{{ formValue.money }}"
+									name="money"
+									bindinput="formInputChange"
+									data-field="money"
+									class="weui-input"
+									placeholder="请输入周期单价"
+								/>
+							</mp-cell>
+							<mp-cell prop="ya_jin" title="上传封面" ext-class="ti">
+								<van-uploader
+									file-list="{{ files }}"
+									max-count="1"
+									bind:delete="deletePhoto"
+									deletable="{{ true }}"
+									bind:after-read="upload"
+								/>
+							</mp-cell>
+						</label>
+					</mp-cells>
+				</mp-form>
+			</scroll-view>
+		</view>
+		<view class="fui-btn__box">
+			<fui-button
+				catch:click="closePopup"
+				type="gray"
+				width="240rpx"
+				height="80rpx"
+				text="取消"
+				margin="0 16rpx"
+			></fui-button>
+			<fui-button width="240rpx" catch:click="submit" height="80rpx" text="提交" margin="0 16rpx"></fui-button>
+		</view>
+		<view class="fui-icon__close" bindtap="closePopup" data-type="2">
+			<fui-icon name="close" size="{{ 48 }}"></fui-icon>
+		</view>
+	</view>
+</fui-bottom-popup>
+<mp-actionSheet
+	bindclose="closeSelect"
+	bindactiontap="selectClick"
+	show="{{ selectShow }}"
+	actions="{{ selectAction }}"
+	title="选择左边或右边电源检测器匹配方向"
+></mp-actionSheet>

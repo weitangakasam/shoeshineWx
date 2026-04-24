@@ -1,0 +1,23 @@
+<!--pages/user/jianyi.wxml-->
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="list-box">
+	<view
+		class="item"
+		wx:if="{{ list.length > 0 }}"
+		wx:for="{{ list }}"
+		wx:key="index"
+		data-item="{{ item }}"
+		bindtap="godetail"
+	>
+		<view class="title">{{item.title}}</view>
+		<view class="time">{{item.create_time}}</view>
+	</view>
+	<view
+		style="text-align:center;padding:30rpx;{{ list.length<=0 ? '' : 'display:none' }}"
+	>暂无数据</view>
+	<navigator
+		url="/paginate/yijian/add"
+		class="iconfont icon-jiahao"
+		style="font-size:30rpx;background-color: #EF8200;color: white;position: fixed;padding: 30rpx;display: flex;border-radius: 100px;justify-content: center;align-items: center;right:20rpx;bottom:100rpx;"
+	></navigator>
+</view>

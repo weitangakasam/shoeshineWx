@@ -1,0 +1,107 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="box">
+	<form action="" bindsubmit="submitForm">
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所名称
+			</view>
+			<view class="row_fr">
+				<input type="text" name="addr_name" placeholder="请输入场所名称" />
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				选择场所
+			</view>
+			<view class="row_fr flex_sw">
+				<input
+					type="text"
+					disabled
+					value="{{ position }}"
+					bindtap="getPostion"
+					placeholder="请选择场所"
+				/>
+				<view class="iconfont icon-zhiyuandidian5"></view>
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所地区
+			</view>
+			<view class="row_fr flex_sw">
+				<input
+					type="text"
+					name="addr_area"
+					disabled
+					value="{{ params.addr_area }}"
+					placeholder="请选择场所地区"
+				/>
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				位置地段
+			</view>
+			<view class="row_fr flex_sw">
+				<input
+					type="text"
+					name="addr_location"
+					value="{{ params.addr_location }}"
+					bindblur="changeInput"
+					data-name="addr_location"
+					placeholder="请选择位置地段"
+				/>
+			</view>
+		</view>
+		<view class="row" wx:if="{{ false }}">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所价格
+			</view>
+			<view class="row_fr flex_sw">
+				<input type="text" name="addr_price" placeholder="请输入场所价格" />
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所管理员姓名
+			</view>
+			<view class="row_fr flex_sw">
+				<input type="text" name="addr_person_name" placeholder="请输入场所管理员姓名" />
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所管理员手机号
+			</view>
+			<view class="row_fr flex_sw">
+				<input type="text" name="addr_person_mobile" placeholder="请输入场所管理员手机号" />
+			</view>
+		</view>
+		<view class="row">
+			<view class="row_fl">
+				<text style="color:red;">*</text>
+				场所图片
+			</view>
+			<view class="row_fr" style="display: flex;">
+				<view style="margin: 0 20rpx 0 0;" wx:if="{{ params.img }}">
+					<image style="width: 150rpx; height: 150rpx;" src="{{ params.img }}"></image>
+				</view>
+				<view
+					style="width: 150rpx; height: 150rpx; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1rpx solid #ccc; padding: 16rpx; color: #999;"
+					bindtap="chooseMedia"
+				>
+					<view style="font-size: 28rpx;">上传图片</view>
+					<view style="font-size: 52rpx;" class="iconfont icon-jiahao"></view>
+				</view>
+			</view>
+		</view>
+		<button class="app_btn btn" style="width: 100%;" form-type="submit">提交</button>
+	</form>
+</view>

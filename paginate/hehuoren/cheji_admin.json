@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "撤机设备",
+  "usingComponents": {
+    "navbar": "/components/navbar/index"
+  }
+}

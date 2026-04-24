@@ -1,0 +1,69 @@
+<!--index.wxml-->
+<navbar parameter="{{ parameter }}"></navbar>
+<swiper
+	autoplay="{{ swiper.length > 1 }}"
+	style="width: 100vw; height: {{ swiperHeight }}px; transition: height 0.3s ease;"
+	indicator-dots="{{ swiper.length > 1 }}"
+	circular="{{ swiper.length > 1 }}"
+	bindchange="onSwiperChange"
+>
+	<swiper-item wx:for="{{ swiper }}" wx:key="index">
+		<image
+			src="{{ item.img }}"
+			mode="widthFix"
+			style="width: 100%;"
+			bindload="onSwiperImageLoad"
+			data-index="{{ index }}"
+		></image>
+	</swiper-item>
+</swiper>
+<block wx:if="{{ !isLogin }}">
+	<image
+		catch:tap="checkLogin"
+		src="/images/首页_03.jpg"
+		mode="widthFix"
+		style="width: 100vw;"
+	/>
+</block>
+<view
+	style="display: flex;align-items:center;justify-content: center;box-sizing: border-box;padding: 20rpx 0;"
+>
+	<view style="display: flex;width: 648rpx;gap: 80rpx;">
+		<view
+			data-url="/paginate/selectCabinet/selectCabinet"
+			catch:tap="goPages"
+			style="flex: 1;"
+		>
+			<image src="/images/图标_1.jpg" style="width: 100%;" mode="widthFix" />
+		</view>
+		<view bindtap="goPages" data-url="stop" style="flex: 1;">
+			<image src="/images/图标_2.jpg" mode="widthFix" style="width: 110%;" />
+		</view>
+	</view>
+</view>
+<view
+	style="display: flex;align-items:center;justify-content: center;box-sizing: border-box;padding: 20rpx 0;"
+>
+	<view style="display: flex;width: 648rpx;gap: 80rpx;">
+		<view
+			data-url="/paginate/rich_text/rich_text?type=使用规则"
+			catch:tap="goPages"
+			style="flex: 1;"
+		>
+			<image
+				src="/images/微信图片_20250922145230_653_1571.png"
+				mode="widthFix"
+				style="width: 100%;"
+			/>
+		</view>
+		<view bindtap="goPages" data-url="/paginate/yijian/add" style="flex: 1;">
+			<image
+				src="/images/微信图片_20250922163123_695_1571.png"
+				mode="widthFix"
+				style="width: 110%;"
+			/>
+		</view>
+	</view>
+</view>
+<showModal hidden="{{ hidden }}" info="{{ userInfo }}"></showModal>
+<authorize bind:onLoadFun="onLoadFun" iShidden="{{ iShidden }}"></authorize>

@@ -1,0 +1,97 @@
+<!--index.wxml-->
+<navbar parameter="{{parameter}}"></navbar>
+
+<view style="width: 100%;">
+    <swiper style="width: 100%; height: {{imgHeight}}px;" circular>
+        <swiper-item wx:for="{{swiper}}" wx:key="index">
+            <!-- <image src="https://img0.baidu.com/it/u=3147214751,3974112859&fm=253&fmt=auto&app=138&f=JPEG?w=1600&h=500" mode="widthFix" style="width: 100%; height: {{imgHeight}}px;" bindload="bindload">
+      </image> -->
+            <image src="/images/WechatIMG188.png" mode="widthFix" style="width: 100%; height: {{imgHeight}}px;" bindload="bindload">
+            </image>
+        </swiper-item>
+    </swiper>
+    <view style="padding: 0rpx 30rpx 0; position: absolute; top: calc({{imgHeight}}px + {{parameter.navH}}rpx - 60rpx); left: 0; right: 0;">
+        <view style="width: 100%; padding: 30rpx 30rpx; background: #fff; border-radius: 20rpx; box-sizing: border-box; margin: 0 0 30rpx 0;">
+            <view style="margin-bottom: 30rpx; background: #f5f5f5; border-radius: 40rpx; display: flex; align-items: center; font-size: 28rpx; padding: 20rpx 30rpx;">
+                <view style="width: 36rpx; height: 36rpx;margin: 0 10rpx 0 0; background: #8c34e0; border-radius: 50%; display: flex; justify-content: center;align-items: center; color: #fff;">
+                    1</view>扫码开柜
+                <view style="width: 48rpx; height: 4rpx; background: #8c34e0; margin: 0 6rpx;"></view>
+                <view style="width: 36rpx; height: 36rpx;margin: 0 10rpx 0 0; background: #8c34e0; border-radius: 50%; display: flex; justify-content: center;align-items: center; color: #fff;">
+                    2</view>取出图书
+                <view style="width: 48rpx; height: 4rpx; background: #8c34e0; margin: 0 6rpx;"></view>
+                <view style="width: 36rpx; height: 36rpx;margin: 0 10rpx 0 0; background: #8c34e0; border-radius: 50%; display: flex; justify-content: center;align-items: center; color: #fff;">
+                    3</view>关闭柜门
+            </view>
+            <view>
+                <label for="" style="font-size: 28rpx; color: #999; display: flex;">
+                    <view style="margin: 0 10rpx 0 0;"><text class="iconfont icon-tishi1" style="color: red;"></text></view>
+                    <swiper autoplay circular vertical style="flex: 1; height: 36rpx;">
+                        <swiper-item wx:for="{{gonggao}}" wx:key="index" catchtouchmove='catchTouchMove' style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                            {{item.title}}
+                            <!-- 取出话筒后，请务必关闭柜门，归还话筒时，扫码开柜门归还 -->
+                        </swiper-item>
+                    </swiper>
+                </label>
+            </view>
+        </view>
+        <view style="background: #fff;">
+            <view style="width: 100%; box-sizing: border-box; display: flex; margin: 0 0 30rpx 0;">
+                <view style="flex: 1; margin: 0 30rpx 0 0; " bindtap="goPages" data-url="/paginate/charge_info/charge_info">
+                    <view style="width: 100%;">
+                        <image src="/images/zujie.png" style="width: 100%;" mode="widthFix"></image>
+                        <!-- <image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F2106110ZPM4H-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662520564&t=88bedcc39b57b7b19227d89834d78705" style="width: 100%;height: 100%; "></image> -->
+                    </view>
+                    <!-- <view style="padding: 20rpx 0; text-align: center; color: #717eff; background: #fff;">我要租用</view> -->
+                </view>
+                <view style="flex: 1; " bindtap="goPages" data-url="stop">
+                    <view style="width: 100%;">
+                        <image src="/images/guihuan.png" mode="widthFix" style="width: 100%;">
+                        </image>
+                        <!-- <image src="https://img1.baidu.com/it/u=1347967874,2305421723&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=353" style="width: 100%;height: 100%; border-top-left-radius: 20rpx;"></image> -->
+                    </view>
+                    <!-- <view style="padding: 20rpx 0; text-align: center; color: #fc9455; background: #fff;">我要归还</view> -->
+                </view>
+            </view>
+            <view class="space">
+                <view style="flex: 1;" bindtap="goPages" data-url="/paginate/huiyuan/huiyuan">
+                    <image src="/images/huiyuan.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+                <view style="flex: 1;" bindtap="goPages" data-url="/paginate/teramhexiao/duihuan">
+                    <image src="/images/tearm.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+                <view style="flex: 1; " bindtap="goPages" data-url="/paginate/invest/invest">
+                    <image src="/images/chong.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+                <view style="flex: 1; " bindtap="goPages" data-url="/paginate/duihuan/duihuan">
+                    <image src="/images/tiyan.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+            </view>
+        </view>
+        <view style="width: 100%; box-sizing: border-box; display: flex; height: 230rpx; margin-bottom: 30rpx;" wx:if="{{false}}">
+            <view style="flex: 1; margin: 0 30rpx 0 0;" class="order_img">
+                <image src="/images/order.png" mode="widthFix" style="width: 100%;" wx:if="{{!isOrder}}"></image>
+                <image src="/images/order2.png" mode="widthFix" style="width: 100%;" wx:else bindtap="goPages" data-url="/paginate/rent/rent"></image>
+                <!-- <view>当前订单</view>
+        <view>您当前暂无订单</view> -->
+            </view>
+            <view style="flex: 1; display: flex;">
+                <view style="flex: 1; margin: 0 30rpx 0 0;" class="chongzhi_img" bindtap="goPages" data-url="/paginate/invest/invest">
+                    <image src="/images/chongzhi.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+                <view style="flex: 1;" class="hezuo_img" bindtap="goPages" data-url="/paginate/user/apply">
+                    <image src="/images/hezuo.png" mode="widthFix" style="width: 100%;"></image>
+                </view>
+            </view>
+        </view>
+
+        <view style="padding: 20rpx 0 0;">
+            <image src="/images/WechatIMG188.png" mode="widthFix" style="width: 100%;"></image>
+        </view>
+
+        <!-- <button id="mobile" class="app_btn app_btn_a" open-type="getPhoneNumber" wx:if="{{login}}" style="opacity: 0;"
+        bindgetphonenumber="getPhoneNumber">请点击授权</button> -->
+    </view>
+</view>
+
+<showModal hidden="{{hidden}}" info="{{userInfo}}"></showModal>
+<authorize bind:onLoadFun='onLoadFun' iShidden="{{iShidden}}"></authorize>

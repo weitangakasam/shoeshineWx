@@ -1,0 +1,194 @@
+/** @format */
+
+page {
+	background-color: #fff;
+}
+page {
+	background: #fff;
+}
+.choose-language {
+	color: red;
+	background: skyblue;
+}
+.lang_btn {
+	display: block;
+}
+.lang_btn2 {
+	display: none;
+}
+.lang_title {
+	padding: 30rpx 30rpx;
+	height: 60rpx;
+	width: 100%;
+}
+.lang_btn .margin-top .left_v {
+	display: flex;
+	align-items: center;
+}
+.lang_btn .margin-top .left_v .title {
+	margin-left: 26rpx;
+}
+.change {
+	padding: 0 30rpx;
+}
+.change .titles {
+	margin-top: 76rpx;
+	height: 48rpx;
+	line-height: 48rpx;
+}
+.change .titles text {
+	font-size: 36rpx;
+	font-weight: 550;
+	color: #3c3d43;
+	margin-left: 24rpx;
+}
+
+.charge_info {
+	background-color: #ecfae9;
+}
+.charge_info .fixed {
+	padding: 30rpx;
+	/* position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; */
+	background: #fff;
+	border-top-left-radius: 20rpx;
+	border-top-right-radius: 20rpx;
+}
+.charge_info .row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30rpx;
+}
+.charge_info .row:last-child {
+	margin-bottom: 20rpx;
+	color: #2cd42a;
+}
+.charge_info .row_fl {
+	width: 60rpx;
+	height: 60rpx;
+	text-align: center;
+	line-height: 60rpx;
+	background: #e9fae8;
+	border-radius: 50%;
+	color: #2cd42a;
+	font-size: 28rpx;
+	margin-right: 30rpx;
+}
+.charge_info .row_fr {
+	flex: 1;
+}
+.charge_info .row_fr view:first-child {
+	font-weight: 550;
+	font-size: 30rpx;
+}
+.charge_info .row_fr view:nth-child(2) {
+	font-size: 24rpx;
+	color: #808080;
+	margin-top: 14rpx;
+}
+.charge_info .update {
+	display: flex;
+	justify-content: center;
+}
+.charge_info .update view {
+	width: 320rpx;
+	padding: 8rpx 20rpx;
+	background: #fdefe6;
+	color: #f07425;
+	font-size: 24rpx;
+	border-radius: 40rpx;
+	text-align: center;
+	margin-bottom: 20rpx;
+}
+.charge_info .protocol {
+	display: inline;
+	text-align: center;
+	margin-left: 20rpx;
+}
+.charge_info .protocol text {
+	color: #57d164;
+}
+.charge_info .protocol text:first-child {
+	color: #808080;
+}
+.charge_info .zujie {
+	background: #4bdf27;
+	padding: 16rpx 30rpx;
+	height: 108rpx;
+	border: 0;
+	border-radius: 20rpx;
+}
+
+.charge_info .zujie view:first-child {
+	font-size: 30rpx;
+}
+.charge_info .zujie view:last-child {
+	font-size: 26rpx;
+}
+.charge_info .yajinzujie {
+	background: #4bdf27;
+	padding: 16 rpx 30rpx;
+	height: 108rpx;
+	border: 0;
+	border-radius: 20rpx;
+	margin-top: 20rpx;
+}
+.charge_info .yajinzujie view:first-child {
+	font-size: 30rpx;
+}
+.charge_info .yajinzujie view:last-child {
+	font-size: 39rpx;
+}
+.fuwenben {
+	padding: 30rpx;
+	background: #fff;
+}
+
+/* 重写 radio 样式 */
+/* 未选中的 背景样式 */
+radio .wx-radio-input {
+	border-radius: 50%; /* 圆角 */
+	width: 40rpx;
+	height: 40rpx;
+	border: none;
+	background: none;
+	position: absolute;
+	right: 0rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked {
+	border: none !important;
+	background: none !important;
+	position: absolute;
+	right: 0rpx;
+}
+.attr_value {
+	position: relative;
+	margin: 0 20rpx;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before {
+	line-height: 40rpx;
+	text-align: center;
+	font-size: 38rpx; /* 对勾大小 30rpx */
+	color: red; /* 对勾颜色 白色 */
+	background: transparent;
+	transform: translate(500%, -50%) scale(1);
+	-webkit-transform: translate(-50%, -50%) scale(1);
+}
+.radio-group {
+	background: #fff;
+}
+.radio {
+	display: block;
+	border-top: 1px solid #ddd;
+	padding: 10rpx;
+}
+.radio:first-child {
+	border: none;
+}
+.section_gap {
+	line-height: 80rpx;
+}

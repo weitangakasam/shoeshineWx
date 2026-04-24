@@ -1,0 +1,98 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view class="user">
+	<label for="mobile">
+		<view class="app_bg_title header">
+			<view
+				class="acea-row row-between-wrapper"
+				style="display: flex; align-items: center; margin-bottom: 40rpx;"
+			>
+				<view
+					class="picTxt acea-row row-between-wrapper"
+					style="display: flex; align-items: center;"
+					bindtap="goPages"
+					data-url="/paginate/setUserInfo/setUserInfo"
+				>
+					<view class="pictrue">
+						<image style="width: 100%; height: 100%;" src="{{ userInfo.avatar }}"></image>
+					</view>
+					<view class="text">
+						<view class="acea-row row-middle">
+							<view class="name line1" wx:if="{{ userInfo && userInfo.nickName }}">
+								<!-- 微信昵称 -->
+								<view style="color: #000; margin-bottom: 6rpx;">{{userInfo.nickName}}</view>
+								<view style="color: #000;">{{userInfo.mobile}}</view>
+							</view>
+							<!-- <view class='name line1' wx:else>
+                        <button id="mobile" class="app_btn app_btn_a" open-type="getPhoneNumber"
+                           bindgetphonenumber="getPhoneNumber">请点击授权</button>
+                     </view> -->
+							<view class="name line1" wx:else bindtap="goPages">请点击授权</view>
+						</view>
+					</view>
+				</view>
+				<text class="iconfont icon-shezhi" bindtap="Setting" style="margin: 0;"></text>
+			</view>
+		</view>
+	</label>
+	<view class="wrapper">
+		<view class="myOrder" style="margin-bottom: 30rpx;">
+			<view
+				class="serviceList acea-row row-middle"
+				style="display: flex; align-items: center; padding: 0 30rpx 30rpx; flex-wrap: wrap;"
+			>
+				<!-- 故障申报 -->
+				<view class="column" bindtap="goPages" data-url="/paginate/guzhang/guzhang">
+					<view class="icon iconfont icon-guzhangtousu"></view>
+					<text>故障申报</text>
+				</view>
+				<!-- 关于我们 -->
+				<view
+					class="column"
+					bindtap="goPages"
+					data-url="/paginate/rich_text/rich_text?type=关于我们"
+				>
+					<view class="icon iconfont icon-guanyuwomen"></view>
+					<text>关于我们</text>
+				</view>
+				<!-- 联系客服 -->
+				<view class="column">
+					<view class="icon  iconfont icon-kehufuwukefu"></view>
+					<button open-type="contact" bindcontact="handleContact" class="contact-btn">联系客服</button>
+				</view>
+				<!-- 我的押金 -->
+				<view class="column" bindtap="goPages" data-url="/paginate/wodeyajin/wodeyajin">
+					<view class="icon iconfont icon-chongzhi"></view>
+					<text>我的押金</text>
+				</view>
+				<!-- 体验卡兑换 -->
+				<view class="column" bindtap="goPages" data-url="/paginate/duihuan/duihuan">
+					<view class="icon iconfont icon-shoukuan"></view>
+					<text>体验卡兑换</text>
+				</view>
+				<!-- 意见反馈 -->
+				<view class="column" bindtap="goPages" data-url="/paginate/yijian/yijian">
+					<view class="icon iconfont icon-xiugaioryijian"></view>
+					<text>意见反馈</text>
+				</view>
+			</view>
+		</view>
+		<view class="myOrder" style="margin-bottom: 30rpx;font-size: 30rpx;">
+			<view
+				class="acea-row row-middle"
+				bindtap="goPages"
+				data-url="/paginate/hehuoren/hehuoren"
+				style="display: flex; align-items: center; justify-content: space-between; padding: 20rpx 30rpx;"
+			>
+				<view style="display: flex; align-items: center;">
+					<view class="iconfont icon icon-xitongguanliyuan" style="margin: 0 30rpx 0 0;"></view>
+					<view>管理员登录</view>
+				</view>
+				<view>
+					<text class="iconfont icon-youjiantou"></text>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<showModal hidden="{{ hidden }}" info="{{ userInfo }}"></showModal>
+<authorize bind:onLoadFun="onLoadFun" iShidden="{{ iShidden }}"></authorize>

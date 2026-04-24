@@ -1,0 +1,12 @@
+<view class="cabinet-grid">
+	<block wx:for="{{ list }}" wx:key="index">
+		<view catch:tap="previewPictures" data-url="{{ item.img }}" class="cabinet-cell">
+			<view>柜子编号：{{ item.flag }}</view>
+			<view>状态：{{item.status}}</view>
+			<view style="display: flex;flex-direction: column;">
+				<view data-flag="{{ item.flag }}" catch:tap="modifyImage" class="btn">修改图片</view>
+				<view catch:tap="openDoor" data-flag="{{ item.flag }}" class="btn" style="margin-top:20rpx">开门</view>
+			</view>
+		</view>
+	</block>
+</view>

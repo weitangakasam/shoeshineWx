@@ -1,0 +1,12 @@
+{
+	"titleBarColor": "#ecfae9",
+	"usingComponents": {
+		"authorize": "/components/authorize/authorize",
+		"navbar": "/components/navbar/index",
+		"mp-checkbox-group": "weui-miniprogram/checkbox-group/checkbox-group",
+		"mp-checkbox": "weui-miniprogram/checkbox/checkbox",
+		"mp-cells": "weui-miniprogram/cells/cells",
+		"fui-checkbox-group": "/components/firstui/fui-checkbox-group/fui-checkbox-group",
+		"fui-checkbox": "/components/firstui/fui-checkbox/fui-checkbox"
+	}
+}

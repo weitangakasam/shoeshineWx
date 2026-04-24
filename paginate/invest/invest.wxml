@@ -1,0 +1,55 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<form bindsubmit="submitSub" report-submit="true" wx:if="{{ true }}">
+	<view
+		style="background-image: linear-gradient( #EF8200, #e5f3ff); color: #fff; font-size: 30rpx;  padding: 30rpx; box-shadow: 0 5rpx 30rpx #e5f3ff;"
+	>
+		<view style="margin: 0 0 20rpx 0;">平台充值</view>
+		<view
+			style="background: #fff; border-radius: 10rpx; display: flex;padding: 40rpx 0 20rpx; font-size: 36rpx; margin: 50rpx 0 0; flex-wrap: wrap;"
+		>
+			<view
+				wx:for="{{ list }}"
+				wx:key="index"
+				style="width: 33%; margin-bottom: 20rpx; padding: 0 6rpx; box-sizing: border-box;"
+			>
+				<view
+					style="width: 100%; display: flex; justify-content: center; align-items: center;height: 120rpx; border-radius: 10rpx;"
+					class="{{ index == active ? 'app_bg_title' :'bg' }}"
+					bindtap="changeActive"
+					data-index="{{ index }}"
+				>
+					<view style="font-size: 28rpx;">
+						<text style="margin-right: 16rpx;">{{item.money}}元</text>
+						<text wx:if="{{ item.awards != 0 }}">送{{item.awards}}元</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view style="padding: 0 30rpx; margin-top: 60rpx;">
+		<button class="app_btn" hover-class="app_btn_hover" form-type="submit">立即充值</button>
+	</view>
+</form>
+<form bindsubmit="submitSub" report-submit="true" wx:if="{{ false }}">
+	<view class="payment">
+		<view
+			class="nav acea-row row-around row-middle"
+			style="display: flex;justify-content: center;"
+		>
+			<view class="item on" bindtap="navRecharge" style="width: 120rpx;">账户充值</view>
+		</view>
+		<view
+			class="input acea-row row-betweent row-bottom"
+			style="display: flex; align-items: center;"
+		>
+			<text>￥</text>
+			<input placeholder="{{ placeholder }}" name="money"></input>
+		</view>
+		<view class="tip" wx:if="{{ !active }}">
+			提示：当前积分为
+			<text class="font-color">￥{{jifen || 0}}</text>
+		</view>
+		<!-- <view class="tip" wx:else>提示：当前佣金为 <text class='font-color'>￥{{userinfo.extractPrice || 0}}</text></view> -->
+		<button class="but app_btn" formType="submit">立即充值</button>
+	</view>
+</form>

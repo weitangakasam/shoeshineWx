@@ -1,0 +1,407 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view>
+	<!-- tab -->
+	<view style="position: fixed; top: {{ top }}rpx; left: 0; right: 0;">
+		<view wx:if="{{ 0 }}" style="display: flex;height: 110rpx; background: #fff; margin-bottom: 4rpx;">
+			<view
+				bindtap="changeTab"
+				data-type="0"
+				class="{{ type==='0'?'app_active_tab':'' }}"
+				style="flex: 1;display: flex;justify-content: center;align-items: center;position: relative;"
+			>
+				<text>代理</text>
+			</view>
+			<view
+				bindtap="changeTab"
+				data-type="1"
+				class="{{ type==='1'?'app_active_tab':'' }}"
+				style="flex: 1;display: flex;justify-content: center;align-items: center; position: relative;"
+			>
+				<text>商户</text>
+			</view>
+		</view>
+		<view class="top">
+			<view>
+				<button class="add app_btn" hover-class="app_btn_hover" bindtap="add">添加人员</button>
+			</view>
+			<view class="flex" style="height: 70rpx; border-radius: 10rpx; overflow: hidden; flex: 1;">
+				<input type="text" placeholder="用户名或手机号搜索" value="{{ searchValue }}" bindinput="changeInputValue" />
+				<button class="search app_btn" hover-class="app_btn_hover" bindtap="search">搜索</button>
+			</view>
+		</view>
+	</view>
+	<view class="box" style="padding-top: 252rpx; box-sizing: border-box;">
+		<swiper
+			style="height: calc(100vh - 252rpx - {{ top }}rpx); box-sizing: border-box;"
+			bindchange="changeSwiper"
+			current="{{ current }}"
+		>
+			<swiper-item>
+				<scroll-view style="height: calc(100vh - 252rpx - {{ top }}rpx);" scroll-y bindscroll="bindscroll" scroll-top="{{ scrollTop }}">
+					<view class="list_box">
+						<view class="list" wx:for="{{ list }}" wx:key="index">
+							<view class="list_fl">
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">用户名：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.username}}</text>
+								</view>
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">手机号：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.mobile}}</text>
+								</view>
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">代理等级：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.daili_rate}}级代理</text>
+								</view>
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">分成比例：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.rate * 100}}%</text>
+								</view>
+								<!-- <view class="list_fl_view" style="color: #4d6fa3;">用户ID：132165</view>
+      <view class="list_fl_view">上级ID：1324546</view> -->
+							</view>
+							<view class="list_fr" style="flex-direction: column;">
+								<button class="btn_red" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '启用' }}">禁用</button>
+								<button class="app_btn" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '暂不启用' }}">启用</button>
+								<button class="app_btn" bindtap="edit" data-item="{{ item }}">修改</button>
+								<!-- <button style="background: #1e9ffd;">配置</button> -->
+							</view>
+						</view>
+						<view
+							wx:if="{{ list.length == 0 }}"
+							style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+						>
+							<view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+							<text style="font-size: 30rpx;">暂无信息</text>
+						</view>
+					</view>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view style="height: calc(100vh - 252rpx - {{ top }}rpx);" scroll-y bindscroll="bindscroll" scroll-top="{{ scrollTop }}">
+					<view class="list_box">
+						<view class="list" wx:for="{{ list2 }}" wx:key="index">
+							<view class="list_fl">
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">用户名：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.username}}</text>
+								</view>
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">手机号：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.mobile}}</text>
+								</view>
+								<view class="list_fl_view">
+									<text style="width: 160rpx; text-align: right;">分成比例：</text>
+									<text style="font-weight: 550; font-size: 32rpx;">{{item.rate * 100}}%</text>
+								</view>
+								<!-- <view class="list_fl_view" style="color: #4d6fa3;">用户ID：132165</view>
+      <view class="list_fl_view">上级ID：1324546</view> -->
+							</view>
+							<view class="list_fr" style="flex-direction: column;">
+								<button class="btn_red" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '启用' }}">禁用</button>
+								<button class="app_btn" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '暂不启用' }}">启用</button>
+								<button class="app_btn" bindtap="edit" data-item="{{ item }}">修改</button>
+								<!-- <button style="background: #1e9ffd;">配置</button> -->
+							</view>
+						</view>
+						<view
+							wx:if="{{ list2.length == 0 }}"
+							style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+						>
+							<view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+							<text style="font-size: 30rpx;">暂无信息</text>
+						</view>
+					</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>
+<view class="top" wx:if="{{ false }}">
+	<view>
+		<button class="add app_btn" hover-class="app_btn_hover" bindtap="add">添加人员</button>
+	</view>
+	<view class="flex" style="height: 70rpx; border-radius: 10rpx; overflow: hidden; flex: 1;">
+		<input type="text" placeholder="用户名或手机号搜索" value="{{ searchValue }}" bindinput="changeInputValue" />
+		<button class="search app_btn" hover-class="app_btn_hover" bindtap="search">搜索</button>
+	</view>
+</view>
+<view class="list_box" wx:if="{{ false }}">
+	<view class="list" wx:for="{{ list }}" wx:key="index">
+		<view class="list_fl">
+			<view class="list_fl_view">
+				操作员：
+				<text style="font-weight: 550; font-size: 32rpx;">{{item.username}}</text>
+			</view>
+			<view class="list_fl_view">
+				手机号：
+				<text style="font-weight: 550; font-size: 32rpx;">{{item.mobile}}</text>
+			</view>
+			<!-- <view class="list_fl_view" style="color: #4d6fa3;">用户ID：132165</view>
+      <view class="list_fl_view">上级ID：1324546</view> -->
+		</view>
+		<view class="list_fr">
+			<button class="btn_red" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '启用' }}">禁用</button>
+			<button class="btn_lan" bindtap="del" data-item="{{ item }}" wx:if="{{ item.status == '暂不启用' }}">启用</button>
+			<button class="app_btn" bindtap="edit" data-item="{{ item }}">修改</button>
+			<!-- <button style="background: #1e9ffd;">配置</button> -->
+		</view>
+	</view>
+	<view
+		wx:if="{{ list.length == 0 }}"
+		style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+	>
+		<view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+		<text style="font-size: 30rpx;">暂无信息</text>
+	</view>
+</view>
+<!-- 分页 -->
+<view class="fenye" style="" wx:if="{{ false }}">
+	<view style="width: 390rpx; height: 60rpx; position: relative; overflow: hidden; box-sizing: border-box;">
+		<view style="display: flex; position:absolute; left: {{ left }}rpx;">
+			<view
+				class="fenye_num {{ page == index + 1 ? 'pageActive' : '' }}"
+				wx:for="{{ totalPage }}"
+				wx:key="index"
+				bindtap="changePage"
+				data-page="{{ index + 1 }}"
+			>{{index + 1}}</view>
+		</view>
+	</view>
+	<form action="" bindsubmit="tiaozhuan">
+		<view style="display: flex; width: 225rpx; align-items: center; margin: 0 4rpx">
+			<input type="number" name="page" placeholder="跳转页数" style="border: 2rpx solid #ccc; flex: 1; padding: 0 0 0 15rpx;" />
+			<button style="width: 90rpx; background: #ccc; font-size: 30rpx; margin: 0; padding: 0;" form-type="submit">跳转</button>
+		</view>
+	</form>
+	<view style="margin: 0 0 0 2rpx; width: 100rpx; flex-shrink: 0;">共{{totalPage}}条</view>
+</view>
+<!-- 添加人员 遮罩层 -->
+<form action="" bindsubmit="addSubmit" wx:if="{{ false }}">
+	<button wx:if="{{ isAdd }}" form-type="reset" class="add_zzc {{ isAdd ? 'add_zzc2' : '' }}" bindtap="add_close"></button>
+	<view wx:if="{{ true }}" class="add_info {{ isAdd ? 'add_info2' : 'add_info' }}">
+		<view class="add_top">
+			<view>人员添加</view>
+			<button form-type="reset" style="margin: 0; padding: 0; height: 40rpx; display: flex; align-items: center;" bindtap="add_close">
+				<text class="iconfont icon-quxiao"></text>
+			</button>
+		</view>
+		<view style="padding: 30rpx; font-size: 30rpx;">
+			<view style="margin-bottom: 30rpx; color: #808080; text-align: center;">用户添加成功后，将自动添加到添加人员的下级</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					手机号
+				</view>
+				<view class="row_fr">
+					<input type="number" name="mobile" placeholder="请输入手机号" />
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					用户名
+				</view>
+				<view class="row_fr">
+					<input type="text" name="username" placeholder="请输入用户名" />
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					登录密码
+				</view>
+				<view class="row_fr">
+					<input type="password" name="password" placeholder="请输入登录密码" />
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					确认密码
+				</view>
+				<view class="row_fr">
+					<input type="password" name="password2" placeholder="请输入确认密码" />
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					角色类型
+				</view>
+				<view class="row_fr flex_sw">
+					<!-- <input type="text" name="address" placeholder="请输入意向经营地区" /> -->
+					<picker mode="selector" style="width:100%;" bindchange="bindPickerChange" value="{{ form.type }}" range="{{ typeArray }}">
+						<view class="picker" wx:if="{{ form.type }}">{{typeArray[form.type]}}</view>
+						<view wx:else style="color: #999;">请选择角色类型</view>
+					</picker>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					经营地区
+				</view>
+				<view class="row_fr flex_sw">
+					<!-- <input type="text" name="address" placeholder="请输入意向经营地区" /> -->
+					<picker
+						mode="multiSelector"
+						bindchange="bindMultiPickerChange"
+						bindcolumnchange="bindMultiPickerColumnChange"
+						value="{{ multiIndex }}"
+						range="{{ multiArray }}"
+						style="width:100%;"
+					>
+						<view wx:if="{{ form.city_id }}">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
+						<view wx:else>
+							<text style="color: #999; width: 100%;">请选择经营地区</text>
+						</view>
+					</picker>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					分成比例
+				</view>
+				<view class="row_fr" style="display: flex;">
+					<input type="number" name="rate" placeholder="请输入分成比例" />
+					<view>%</view>
+				</view>
+			</view>
+			<view style="color: red;margin-bottom: 20rpx; font-size: 24rpx;">提示：分成比例不能高于{{tishi * 100}}%</view>
+			<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+				<button form-type="submit" class="add_btn app_btn" hover-class="app_btn_hover">立即提交</button>
+				<button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button>
+			</view>
+		</view>
+	</view>
+</form>
+<page-container show="{{ isAdd }}" bind:afterleave="add_close2">
+	<form bindsubmit="addSubmit">
+		<view wx:if="{{ isAdd2 }}" class="app_ios">
+			<view class="add_top">
+				<view>人员添加</view>
+				<button form-type="reset" style="margin: 0; padding: 0; height: 40rpx; display: flex; align-items: center;" bindtap="add_close">
+					<text class="iconfont icon-quxiao"></text>
+				</button>
+			</view>
+			<view style="padding: 30rpx; font-size: 30rpx;">
+				<view style="margin-bottom: 30rpx; color: #808080; text-align: center;">用户添加成功后，将自动添加到添加人员的下级</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						手机号
+					</view>
+					<view class="row_fr">
+						<input type="number" name="mobile" placeholder="请输入手机号" />
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						用户名
+					</view>
+					<view class="row_fr">
+						<input type="text" name="username" placeholder="请输入用户名" />
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						登录密码
+					</view>
+					<view class="row_fr">
+						<input type="password" name="password" placeholder="请输入登录密码" />
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						确认密码
+					</view>
+					<view class="row_fr">
+						<input type="password" name="password2" placeholder="请输入确认密码" />
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						角色类型
+					</view>
+					<view class="row_fr flex_sw">
+						<!-- <input type="text" name="address" placeholder="请输入意向经营地区" /> -->
+						<picker mode="selector" style="width:100%;" bindchange="bindPickerChange" value="{{ form.type }}" range="{{ typeArray }}">
+							<view class="picker" wx:if="{{ form.type }}">{{typeArray[form.type]}}</view>
+							<view wx:else style="color: #999;">请选择角色类型</view>
+						</picker>
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						经营地区
+					</view>
+					<view class="row_fr flex_sw">
+						<!-- <input type="text" name="address" placeholder="请输入意向经营地区" /> -->
+						<picker
+							mode="multiSelector"
+							bindchange="bindMultiPickerChange"
+							bindcolumnchange="bindMultiPickerColumnChange"
+							value="{{ multiIndex }}"
+							range="{{ multiArray }}"
+							style="width:100%;"
+						>
+							<view wx:if="{{ form.city_id }}">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
+							<view wx:else>
+								<text style="color: #999; width: 100%;">请选择经营地区</text>
+							</view>
+						</picker>
+					</view>
+				</view>
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						分成比例
+					</view>
+					<view class="row_fr" style="display: flex;">
+						<input type="number" name="rate" placeholder="请输入分成比例" />
+						<view>%</view>
+					</view>
+				</view>
+				<view style="color: red;margin-bottom: 20rpx; font-size: 24rpx;">提示：分成比例不能高于{{tishi * 100}}%</view>
+				<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+					<button form-type="submit" class="add_btn app_btn" hover-class="app_btn_hover">立即提交</button>
+					<button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button>
+				</view>
+			</view>
+		</view>
+	</form>
+	<form bindsubmit="editSubmit">
+		<view wx:if="{{ isEdit }}" class="app_ios">
+			<view class="add_top">
+				<view>修改</view>
+				<button form-type="reset" style="margin: 0; padding: 0; height: 40rpx; display: flex; align-items: center;" bindtap="add_close">
+					<text class="iconfont icon-quxiao"></text>
+				</button>
+			</view>
+			<view style="padding: 30rpx; font-size: 30rpx;">
+				<view class="row">
+					<view class="row_fl">
+						<text style="color:red;">*</text>
+						分成比例
+					</view>
+					<view class="row_fr" style="display: flex;">
+						<input type="number" name="rate" value="{{ editInfo.rate }}" placeholder="请输入分成比例" bindinput="changeInput" data-type="rate" />
+						<view>%</view>
+					</view>
+				</view>
+				<view style="color: red;margin-bottom: 20rpx; font-size: 24rpx;">提示：分成比例不能高于{{tishi * 100}}%</view>
+				<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+					<button form-type="submit" class="add_btn app_btn" hover-class="app_btn_hover">立即提交</button>
+					<button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button>
+				</view>
+			</view>
+		</view>
+	</form>
+</page-container>

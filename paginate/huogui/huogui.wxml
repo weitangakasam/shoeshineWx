@@ -1,0 +1,14 @@
+<navbar parameter='{{parameter}}'></navbar>
+
+<view>
+  <view>
+    <view style="border: 2rpx solid #ddd; background: #eee; height: 80rpx; display: flex;">
+      <view style="flex: 1; height: 100%; display: flex; align-items: center; border-right: 2rpx solid #ddd; justify-content: center;">柜门号</view>
+      <view style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">状态</view>
+    </view>
+    <view style="display: flex; height: 80rpx; background: {{index%2 != 0 ? '#eee' : '#fff'}};" wx:for="{{list}}" wx:key="index">
+      <view style="flex: 1; height: 100%; display: flex; align-items: center; border-right: 2rpx solid #ddd; justify-content: center; border-bottom: 2rpx solid #ddd;">{{item.count}}</view>
+      <view style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; border-bottom: 2rpx solid #ddd;">{{item.status}}</view>
+    </view>
+  </view>
+</view>

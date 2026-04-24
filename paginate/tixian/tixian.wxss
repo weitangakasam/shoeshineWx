@@ -1,0 +1,13 @@
+page{background-color:#fff!important;}
+.cash-withdrawal .wrapper .list{padding:0 30rpx;}
+.cash-withdrawal .wrapper .list .item{border-bottom:1rpx solid #eee;height:107rpx;font-size:30rpx;color:#333; display: flex; align-items: center;}
+.cash-withdrawal .wrapper .list .item .name{width:130rpx;}
+.cash-withdrawal .wrapper .list .item .input{width:505rpx;}
+.cash-withdrawal .wrapper .list .item .input .placeholder{color:#bbb;}
+.cash-withdrawal .wrapper .list .tip{font-size:26rpx;color:#999;margin-top:25rpx;}
+.cash-withdrawal .wrapper .list .bnt{font-size:32rpx;color:#fff;width:690rpx;height:90rpx;text-align:center;border-radius:50rpx;line-height:90rpx;margin:64rpx auto;}
+.cash-withdrawal .wrapper .list .tip2{font-size:26rpx;color:#999;text-align:center;margin:44rpx 0 20rpx 0;}
+.cash-withdrawal .wrapper .list .value{height:135rpx;line-height:135rpx;border-bottom:1rpx solid #eee;width:690rpx;margin:0 auto;}
+.cash-withdrawal .wrapper .list .value input{font-size:80rpx;color:#282828;height:135rpx;text-align:center;}
+.cash-withdrawal .wrapper .list .value .placeholder2{color:#bbb;}
+.bg-color {background: #3cb963 !important;}

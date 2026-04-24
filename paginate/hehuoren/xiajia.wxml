@@ -1,0 +1,87 @@
+<view>
+  <view style="padding: 30rpx 50rpx; background: #0327f9; color: #fff; margin-bottom: 14rpx;">
+    <view style="font-size: 32rpx;">NFZ被大幅扩建</view>
+  </view>
+
+  <view class="list_box" style="box-shadow: 0 -6rpx 6rpx #ccc;">
+    <view class="list" style="display: flex; justify-content: space-between;font-size: 30rpx; padding: 10rpx 30rpx; border-bottom: 2rpx solid #ccc; margin: 0 0 20rpx 0;" wx:for="{{list}}" wx:key="index" wx:if="{{item.title != ''}}">
+      <block>
+        <view class="list_fl" style="display: flex; ">
+          <view style="margin: 0 30rpx 0 0;">
+            <image src="{{item.img}}" style="width: 136rpx; height: 136rpx;"></image>
+          </view>
+          <view>
+            <view style="margin: 0 0 10rpx 0;">商品名称:{{item.title}}</view>
+            <view style="margin: 0 0 10rpx 0;">商品金额:0.01元</view>
+            <view style="color: #808080;">库存:{{item.count}}</view>
+          </view>
+        </view>
+        <view class="list_fr">
+          <view>状态: {{item.status}}</view>
+          <view style="margin: 0 0 10rpx 0;">货道: {{item.way_number}}</view>
+          <view style="display: flex;">
+            <!-- <button style="font-size: 30rpx;margin:0;padding: 0; background: #ff5b32; color: #fff; width: 85rpx; height: 56rpx;line-height: 56rpx; border-radius: 2rpx; " >优惠</button> -->
+            <button class="btn_red" style="font-size: 30rpx;margin:0;padding: 0; color: #fff; width: 85rpx; height: 56rpx;line-height: 56rpx; border-radius: 6rpx;  " bindtap="edit" data-item="{{item}}" wx:if="{{item.status == '正常'}}">下架</button>
+            <button style="font-size: 30rpx;margin:0;padding: 0; background: #4d6ef1; color: #fff; width: 85rpx; height: 56rpx;line-height: 56rpx; border-radius: 6rpx;  " bindtap="edit" data-item="{{item}}" wx:else>上架</button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 修改 遮罩层 -->
+<view wx:if="{{isEdit}}" class="add_zzc {{isEdit ? 'add_zzc2' : ''}}" bindtap="edit_close"></view>
+<view wx:if="{{true}}" class="add_info {{isEdit ? 'add_info2' : 'add_info'}}">
+  <view class="add_top">
+    <view>修改</view>
+    <view bindtap="edit_close"><text class="iconfont icon-quxiao"></text></view>
+  </view>
+  <view style="padding: 30rpx; font-size: 30rpx;">
+    <form action="">
+      <view class="row">
+        <view class="row_fl">
+          <text style="color:red;">*</text>商品售价
+        </view>
+        <view class="row_fr" style="display: flex;align-items: center;justify-content: flex-end;margin-right: 30rpx;">
+          <input type="number" style="border: 2rpx solid #000;width: 120rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;" />
+          <view style="color: #808080;">元/个</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="row_fl">
+          <text style="color:red;">*</text>剩余商品
+        </view>
+        <view class="row_fr" style="display: flex;align-items: center;justify-content: flex-end; margin-right: 30rpx;">
+          <view><text class="iconfont icon-jianhao"></text></view>
+          <input type="number" value="99" style="border: 2rpx solid #000;width: 100rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;" />
+          <view><text class="iconfont icon-jiahao"></text></view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="row_fl">
+          <text style="color:red;">*</text>货到容量
+        </view>
+        <view class="row_fr" style="display: flex;align-items: center;justify-content: flex-end; margin-right: 30rpx;">
+          <view><text class="iconfont icon-jianhao"></text></view>
+          <input type="number" value="10" style="border: 2rpx solid #000;width: 100rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;" />
+          <view><text class="iconfont icon-jiahao"></text></view>
+        </view>
+      </view>
+      <view class="row" wx:if="{{false}}">
+        <view class="row_fl">
+          <text style="color:red;">*</text>货到容量
+        </view>
+        <view class="row_fr">
+          <input type="text" placeholder="请输入货到容量" />
+        </view>
+      </view>
+
+      <view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+        <button form-type="submit" class="add_btn" style="background: #4d6ef1; ">确认保存</button>
+        <!-- <button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button> -->
+      </view>
+    </form>
+  </view>
+
+</view>

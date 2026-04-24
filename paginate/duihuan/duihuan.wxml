@@ -1,0 +1,15 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="box">
+  <form action="" bindsubmit="submit">
+    <view class="row">
+      <view class="row_fl">
+        <text style="color:red;">*</text>兑换码
+      </view>
+      <view class="row_fr">
+        <input type="text" name="code" placeholder="请输入兑换码" />
+      </view>
+    </view>
+
+    <button class="app_btn btn"	hover-class="app_btn_hover" style="width: 100%;" form-type="submit">兑换</button>
+  </form>
+</view>

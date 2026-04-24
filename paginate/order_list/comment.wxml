@@ -1,0 +1,47 @@
+<view class="container p-bottom" wx:if="{{goodsList.length&&formData.length}}">
+    <view class="goods-list">
+        <view class="goods-item "  wx:for="{{goodsList}}" wx:key="this">
+            <!-- <view class="goods-detail dis-flex flex-dir-row">
+                <view class="left">
+                    <image class="goods-image" src="{{item.image.file_path}}"></image>
+                </view>
+                <view class="right dis-flex flex-box flex-dir-column flex-x-around">
+                    <text class="twolist-hidden">{{item.goods_name}}</text>
+                    <text class="">￥{{item.goods_price}}</text>
+                </view>
+            </view> -->
+            <view class='score'>
+                <view class="score_h">服务评价</view>
+                <view class='item acea-row row-middle' wx:for='{{scoreList}}' wx:key>
+                    <view>{{item.name}}</view>
+                    <view class='starsList'>
+                        <text bindtap='stars' data-indexw='{{index}}' data-index='1' class='iconfont {{item.stars>=1?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
+                        <text bindtap='stars' data-indexw='{{index}}' data-index='2' class='iconfont {{item.stars>=2?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
+                        <text bindtap='stars' data-indexw='{{index}}' data-index='3' class='iconfont {{item.stars>=3?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
+                        <text bindtap='stars' data-indexw='{{index}}' data-index='4' class='iconfont {{item.stars>=4?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
+                        <text bindtap='stars' data-indexw='{{index}}' data-index='5' class='iconfont {{item.stars>=5?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
+                    </view>
+                    <text class='evaluate' wx:if="{{item.stars}}">{{item.stars==5 ? "非常好":item.stars+"分"}}</text>
+                </view>
+            </view>
+            <view class="dis-flex content-row">
+                <textarea bindinput="contentInput" data-index="{{index}}" maxlength="2000" placeholder="请输入评价内容 (留空则不评价)" placeholderStyle="color:#ccc"></textarea>
+            </view>
+            <view class="image-list">
+                <view class="image-preview" wx:for="{{formData[index].image_list}}" wx:for-index="imageIndex" wx:for-item="imagePath" wx:key="this">
+                    <text catchtap="deleteImage" class="image-delete iconfont icon-shanchu" data-image-index="{{imageIndex}}" data-index="{{index}}"></text>
+                    <image mode="aspectFill" src="{{imagePath}}"></image>
+                </view>
+                <view bindtap="chooseImage" class="image-picker dis-flex flex-dir-column flex-x-center flex-y-center" data-index="{{index}}" wx:if="{{!formData[index].image_list||formData[index].image_list.length<6}}">
+                    <text class="choose__icon iconfont icon-tubiao_xiangji"></text>
+                    <text class="choose__text">上传图片</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="flow-fixed-footer b-f">
+        <view class="flow-btn f-32">
+            <view catchtap="submit">确认提交</view>
+        </view>
+    </view>
+</view>

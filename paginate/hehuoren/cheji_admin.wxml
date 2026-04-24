@@ -1,0 +1,103 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view>
+  <!-- tab -->
+  <view style=" position: fixed; top: {{top}}; left: 0; right: 0;" wx:if="{{false}}">
+    <view style="display: flex;height: 110rpx; background: #fff; margin-bottom: 4rpx;">
+      <view bindtap="changeTab" data-type="1" class="{{type==='1'?'app_active_tab':''}}"
+        style="flex: 1;display: flex;justify-content: center;align-items: center; ">
+        <text>售货机</text>
+      </view>
+      <view bindtap="changeTab" data-type="2" class="{{type==='2'?'app_active_tab':''}}"
+        style="flex: 1;display: flex;justify-content: center;align-items: center;">
+        <text>租赁机</text>
+      </view>
+    </view>
+    <view class="search-box-bg">
+      <form action="" bindsubmit="search">
+        <view class="search-box">
+          <input type="text" name="search" placeholder="设备编号或名称" value="{{searchValue}}" bindinput="changeInput" />
+          <button form-type="submit">搜索</button>
+        </view>
+      </form>
+    </view>
+  </view>
+  <view class="box" style="padding-top: 252rpx; box-sizing: border-box;" wx:if="{{false}}">
+    <swiper style="height: 100vh; box-sizing: border-box;" bindchange="changeSwiper" current="{{current}}">
+      <swiper-item>
+        <scroll-view style="height: calc(100vh - 252rpx);" scroll-y>
+          <view class="main">
+            <view class="list" wx:for="{{list}}" wx:key="index">
+              <view class="list_fl">
+                <view>设备名称：{{item.name}}</view>
+                <view style="font-size: 26rpx; margin: 6rpx 0 10rpx; color: #6a55de;">设备号：{{item.dev_id}}</view>
+                <view style="font-size: 26rpx;" wx:if="{{type == '1'}}">货道数量：{{item.amount}}</view>
+              </view>
+
+              <view class="list_fr">
+                <view class="list_center" style="color: #808080; margin: 0 0 6rpx 0;">
+                  状态：{{item.status}}
+                </view>
+                <button class="app_btn" bindtap="cheji" style="height: 60rpx; line-height: 60rpx;"
+                  data-item="{{item}}">撤机</button>
+              </view>
+            </view>
+            <view wx:if="{{list.length == 0}}"
+              style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;">
+              <view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+              <text style="font-size: 30rpx;">暂无信息</text>
+            </view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+
+  <!-- 洗车 -->
+  <view class="search-box-bg app_bg_title">
+    <form action="" bindsubmit="search">
+      <view class="search-box">
+        <input type="text" name="search" placeholder="设备编号或名称" />
+        <button form-type="submit" class="app_btn">搜索</button>
+      </view>
+    </form>
+  </view>
+  <view class="main">
+    <radio-group bindchange="radioChange">
+      <view class="list" wx:for="{{list}}" wx:key="index">
+          <view class="list_fl">
+            <view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+              <view style="width: 150rpx;">设备名称：</view> {{item.name}}
+            </view>
+            <view style="font-size: 30rpx; margin-bottom: 16rpx; color: #6a55de; display: flex;">
+              <view style="width: 150rpx;">设备号：</view> {{item.only_code}}
+            </view>
+            <view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+              <view style="width: 150rpx;">代理等级：</view>{{item.daili_rate}}
+            </view>
+            <view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+              <view style="width: 150rpx;">联系人：</view>{{item.username}}
+            </view>
+            <view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+              <view style="width: 150rpx;">联系电话：</view>{{item.mobile}}
+            </view>
+          </view>
+
+          <view class="list_fr">
+            <view class="list_center" style="color: #808080; margin: 0 0 6rpx 0;">
+              状态：{{item.status}}
+            </view>
+            <button class="app_btn" bindtap="cheji" style="height: 60rpx; line-height: 60rpx;"
+              data-item="{{item}}">撤机</button>
+          </view>
+      </view>
+
+    </radio-group>
+
+    <view wx:if="{{list.length == 0}}"
+      style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;">
+      <view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+      <text style="font-size: 30rpx;">暂无信息</text>
+    </view>
+  </view>
+</view>

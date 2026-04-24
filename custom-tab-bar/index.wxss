@@ -1,0 +1,83 @@
+/** @format */
+
+.tab-bar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 0;
+	right: 0;
+	width: 90vw;
+	margin: 0 auto;
+	height: calc(30px + 20rpx);
+	display: flex;
+	justify-content: center;
+	background-color: #ab9f87;
+	border-top-left-radius: 40rpx;
+	border-top-right-radius: 40rpx;
+	padding-bottom: env(safe-area-inset-bottom);
+	overflow: hidden;
+}
+
+.tab-bar-item {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.tab-bar-item image {
+	height: 90%;
+	z-index: -1;
+}
+
+.scan {
+	flex: 1.5;
+}
+
+.scan-content view,
+.tab-bar-item view {
+	margin-top: 10rpx;
+	font-size: 10px;
+}
+
+.scan-content {
+	border-radius: 55rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-items: center;
+	color: #000;
+}
+
+.scan-content image {
+	width: 70rpx;
+	height: calc(48px + 20rpx);
+}
+
+.qrcode {
+	width: 20px;
+	height: 20px;
+}
+
+.qr {
+	background-color: #fff;
+	border-radius: 50%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 130rpx;
+	height: 130rpx;
+	z-index: 99;
+	transform: translateY(-20%);
+}
+
+.scan-text {
+	transform: translateY(-35rpx);
+	z-index: 100;
+	white-space: nowrap;
+	letter-spacing: 10rpx;
+	font-size: 12px !important;
+	font-weight: 900;
+}

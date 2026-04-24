@@ -1,0 +1,104 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<view style="padding: 20rpx;box-sizing: border-box;">
+	<fui-card>
+		<view style="padding: 20rpx;box-sizing: border-box;;">
+			<!-- <mp-uploader
+				files="{{ files }}"
+				bindselect="upload"
+				delete="{{ true }}"
+				upload="{{ uploadFile }}"
+				binddelete="binddelete"
+				max-count="9"
+			></mp-uploader> -->
+			<view
+				style="display: grid;grid-template-columns:repeat(2,1fr);gap: 20rpx;width: 80vw;"
+			>
+				<block wx:for="{{ images }}" wx:key="index">
+					<block wx:if="{{ !files[index] }}">
+						<view
+							catch:tap="uploadFile"
+							data-index="{{ index }}"
+							class="uploader__input-box"
+							hover-class="weui-active"
+						>
+							<!-- 基础版 -->
+							<view class="icon-text-container" data-key="自定义参数">
+								<image class="icon" src="{{ item.url }}" mode="aspectFit" />
+							</view>
+							<!-- 带角标/红点的扩展版 -->
+						</view>
+					</block>
+					<block wx:elif="{{ files[index].error }}">
+						<view
+							style="width: 100%;height: 100%;border-radius: 20rpx !important;"
+							data-index="{{ index }}"
+							bindtap="previewImage"
+							class="weui-uploader__file weui-uploader__file_status"
+						>
+							<image class="weui-uploader__img" src="{{ files[index].local_url }}" mode="aspectFit" />
+							<view class="weui-uploader__file-content">
+								<icon type="warn" size="23" color="#F43530"></icon>
+							</view>
+						</view>
+					</block>
+					<block wx:elif="{{ files[index].loading }}">
+						<view
+							data-index="{{ index }}"
+							bindtap="previewImage"
+							class="weui-uploader__file weui-uploader__file_status"
+							style="width: 100%;height: 100%;border-radius: 20rpx !important;"
+						>
+							<image
+								class="weui-uploader__img"
+								style="width: 100%;height: 100%;border-radius: 20rpx !important;"
+								src="{{ files[index].local_url }}"
+								mode="aspectFit"
+							/>
+							<view class="weui-uploader__file-content">
+								<view class="weui-loading"></view>
+							</view>
+						</view>
+					</block>
+					<block wx:else>
+						<view
+							class="uploader__input-box"
+							style="border-radius: 20rpx !important;position: relative;aspect-ratio: 1;max-width: 40vw"
+							data-index="{{ index }}"
+							bindtap="previewImage"
+						>
+							<image
+								style="border-radius: 20rpx;"
+								class="weui-uploader__img"
+								src="{{ files[index].local_url }}"
+								mode="aspectFit"
+							/>
+							<image
+								wx:if="{{ !showPreview }}"
+								catch:tap="binddelete"
+								data-index="{{ index }}"
+								src="/images/icn_删除.png"
+								mode="widthFix"
+								style="width: 50rpx;z-index: 9999999;position: absolute;top: 0;right: 0;height:  50rpx;;"
+							/>
+						</view>
+					</block>
+				</block>
+			</view>
+		</view>
+	</fui-card>
+</view>
+<view style="padding: 20rpx;box-sizing: border-box;">
+	<fui-button bind:click="submit" text="提交"></fui-button>
+</view>
+<mp-gallery
+	class="gallery"
+	hide-on-click="{{ true }}"
+	show-delete="{{ true }}"
+	bindhide="hide"
+	show="{{ showPreview }}"
+	binddelete="deletePic"
+	img-urls="{{ previewImageUrls }}"
+	current="{{ previewCurrent }}"
+></mp-gallery>
+<van-dialog id="van-dialog" />
+<van-toast id="van-toast" />

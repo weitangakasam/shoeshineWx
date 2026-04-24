@@ -1,0 +1,227 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="">
+  <view wx:if="{{false}}" style="display: flex; background: #fff;">
+    <!-- <view catchtap="bindHeaderTap" class="{{dataType==='全部'?'active':''}}" data-type="全部">
+      <text>全部</text>
+    </view> -->
+    <view class="{{type==='购买优惠券'?'app_active_tab':''}}" data-type="购买优惠券" bindtap="changeTab"
+      style="flex: 1;height: 100rpx; display: flex;justify-content: center;align-items: center;">
+      <text>购买优惠券</text>
+    </view>
+    <view class="{{type==='我的优惠券'?'app_active_tab':''}}" data-type="我的优惠券" bindtap="changeTab"
+      style="flex: 1;height: 100rpx; display: flex;justify-content: center;align-items: center;">
+      <text>我的优惠券</text>
+    </view>
+    <!-- <view bindtap="bindHeaderTap" class="{{dataType==='FINISHED'?'active':''}}" data-type="FINISHED">
+      <text>待评价</text>
+    </view> -->
+  </view>
+  <scroll-view wx:if="{{false}}" scroll-y class="scroll-view"
+    style="height: calc(100vh - 42px - 46px - {{parameter.navH}}rpx - constant(safe-area-inset-bottom));height: calc(100vh - 42px - 46px - {{parameter.navH}}rpx - env(safe-area-inset-bottom));">
+    <view style="padding: 15rpx 30rpx 15rpx; box-sizing: border-box;">
+      <view class="app_list" wx:for="{{list}}" wx:key="index" wx:if="{{type == '购买优惠券'}}"
+        style="background: #fff;  border-radius: 16rpx;justify-content: space-between; padding: 20rpx; margin-bottom: 20rpx; font-size: 26rpx;">
+        <view class="app_list_fl" bindtap="useGuize" data-item="{{item}}"
+          style="flex: 1; display: flex; align-items: center;justify-content: center;padding: 0 30rpx 0 0; flex-wrap: wrap;">
+          <view class="yhq_bg {{item.voucher_rate[0] > 0 ? '' : 'da'}}"
+            style="width: 150rpx; height: 100rpx;font-size: 20rpx; text-align: center;position: relative;"
+            wx:if="{{item.voucher_money > 0}}">
+            <view style="margin-top: {{item.voucher_rate[0] > 0 ? '16rpx' : '10rpx'}}"><text
+                style="font-size: 34rpx; font-weight: 800;">{{item.voucher_money}}</text> 元 X
+              <text style="font-size: 30rpx; font-weight: 800;">{{item.voucher_money_count}}</text> 张
+            </view>
+            <view
+              style="position: absolute; bottom: {{item.voucher_rate[0] > 0 ? '4rpx' : '8rpx'}}; left: 50%; transform: translate(-50%, 0); width: 100%; color: #fff;">
+              优惠券</view>
+          </view>
+          <view style="width: 40rpx; text-align: center; color: #ff5244;"
+            wx:if="{{item.voucher_money > 0 && item.voucher_rate[0] > 0}}"> + </view>
+          <view class="yhq_bg {{item.voucher_money > 0 ? '' : 'da'}}"
+            style="width: 150rpx; height: 100rpx;font-size: 20rpx; text-align: center; position: relative;"
+            wx:if="{{item.voucher_rate[0] > 0}}">
+            <view style="margin-top: {{item.voucher_rate[0] > 0 ? '16rpx' : '10rpx'}}; font-size: 20rpx;"><text
+                style="font-size: 34rpx; font-weight: 800;">{{item.voucher_rate[0]}}</text><text
+                style="font-weight: 800; font-size: 30rpx;">.{{item.voucher_rate[1]}}</text>折 X <text
+                style="font-weight: 800; font-size: 30rpx;">{{item.voucher_rate_count}}</text> 张</view>
+            <view
+              style="position: absolute; bottom: {{item.voucher_rate[0] > 0 ? '4rpx' : '8rpx'}}; left: 50%; transform: translate(-50%, 0); width: 100%; color: #fff;">
+              优惠券</view>
+          </view>
+
+        </view>
+        <view class="app_list_fr"
+          style="font-size: 30rpx; border-left: 2rpx solid #ddd; padding-left: 30rpx; width: 280rpx; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <view style="font-weight: 800; margin-bottom: 16rpx; text-align: center;">{{item.title}}</view>
+          <view
+            style="color: #da565f; margin-bottom: 16rpx; font-size: 24rpx; text-align: center; background: #ffe9ec; padding: 4rpx 8rpx;">
+            {{item.info}}</view>
+          <view bindtap="buy" data-item="{{item}}"
+            style="width: 100%; height: 50rpx; border-radius: 40rpx; border: 2rpx solid red; display: flex; justify-content: center; align-items: center;">
+            <text style="color: red; margin-right: 10rpx;">￥{{item.price_new}}抢购</text><text
+              style="text-decoration:line-through; color: #999; font-size: 24rpx;">￥{{item.price_old}}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:for="{{list}}" wx:key="index" wx:if="{{type == '我的优惠券'}}"
+        style="margin-bottom: 20rpx; background: #fff; padding: 20rpx 0; border-radius: 16rpx;">
+        <label for="" style="display: flex; justify-content: space-between; align-items: center; padding: 0 20rpx 0 0;"
+          bindtap="changeRadio" data-item="{{item}}">
+          <view class="app_list_fl" data-item="{{item}}"
+            style="flex: 1; display: flex; align-items: center;justify-content: center;padding: 0 30rpx 0 0; flex-wrap: wrap;">
+            <view class="yhq_bg"
+              style="width: 176rpx; height: 118rpx;font-size: 20rpx; text-align: center;position: relative;">
+              <view style="margin-top: 14rpx;" wx:if="{{item.price > 0}}">
+                <text style="font-size: 30rpx; font-weight: 800;">{{item.price}}</text>
+                <text style="font-size: 24rpx;">元</text>
+              </view>
+              <view style="margin-top: 14rpx;" wx:if="{{item.rate > 0}}">
+                <text style="font-size: 30rpx; font-weight: 800;">{{item.rate2[0]}}</text><text
+                  style="font-size: 24rpx; font-weight: 800;">.{{item.rate2[1]}}</text>
+                <text style="font-size: 24rpx;">折</text>
+              </view>
+              <view style="position: absolute; bottom: 8rpx; left: 50%; transform: translateX(-50%); color: #f5f5f5;">
+                优惠券
+              </view>
+            </view>
+            <!-- <view class="app_btn_red" style="margin-left: 30rpx; padding: 15rpx; border-radius: 10rpx; font-size: 24rpx;">使用规则</view> -->
+          </view>
+          <view class="app_list_fr" wx:if="{{false}}"
+            style="font-size: 30rpx; padding-left: 30rpx; width: 300rpx; box-sizing: border-box; display: flex; justify-content: center;">
+            <view style="display: flex; align-items: center;">
+              <radio value="{{item.id}}" checked="{{item.id == shopInfo.id}}" />
+            </view>
+          </view>
+        </label>
+      </view>
+      <view wx:if="{{list.length == 0}}"
+        style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;">
+        <view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+        <text style="font-size: 30rpx;">暂无优惠券</text>
+      </view>
+    </view>
+  </scroll-view>
+  <view style="display: flex; flex-direction: column;align-items: center; padding: 30rpx; margin-bottom: 30rpx;" wx:if="{{list}}">
+    <view class="yhq_bg2 "
+      style="width: 260rpx; height: 180rpx; font-size: 28rpx; text-align: center;position: relative; margin-bottom: 30rpx;">
+      <view style="padding: 36rpx 0 0 0;">满<text
+          style="font-size: 32rpx; font-weight: 800;">{{list.full_money}}</text>元减<text
+          style="font-size: 30rpx; font-weight: 800;">{{list.minus_money}}</text>元
+      </view>
+      <view
+        style="position: absolute; bottom: 10rpx; left: 50%; transform: translate(-50%, 0); width: 100%; color: #fff;">
+        优惠券</view>
+    </view>
+    <view style="color: red;" wx:if="{{list.is_use_coupon == 'n'}}">未使用</view>
+    <view style="color: #808080;" wx:if="{{list.is_use_coupon == 'y'}}">已使用</view>
+    <view style="color: #808080;" wx:if="{{list.is_use_coupon == 'x'}}">已过期</view>
+  </view>
+  <view wx:if="{{!list}}"
+        style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;">
+        <view class="iconfont icon-wushuju" style="font-size: 100rpx;"></view>
+        <text style="font-size: 30rpx;">暂无优惠券</text>
+      </view>
+  <!-- <button class="app_btn_red app_ios_bottom" hover-class="app_btn_hover" bindtap="goPages"
+    data-url="/paginate/youhuiquan/use" style="position: fixed;left: 15px; right: 15px; border-radius: 8rpx;"
+    wx:if="{{type == '我的优惠券'}}">已用优惠券</button> -->
+
+  <!-- 遮罩层 -->
+  <view style="width: 100vw; height: 100vh; background: #000; opacity: 0.3; position: fixed; top: 0; left: 0;"
+    wx:if="{{hidden || hidden2}}" bindtap="close">
+  </view>
+  <view wx:if="{{hidden}}"
+    style="background: #fff; z-index: 99; border-radius: 16rpx; width: 80vw;height: 70vh; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <view style="position: relative; padding: 20rpx; height: 100%; box-sizing: border-box; font-size: 30rpx;">
+      <view
+        style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+        bindtap="close">
+        <text class="iconfont icon-quxiao" style="font-size: 20rpx;"></text>
+      </view>
+      <view style="padding: 20rpx; font-weight: 800; font-size: 34rpx; text-align: center;">虎奔君优惠券购买须知</view>
+      <view
+        style="display: flex;background: #f5f5f5; border-radius: 10rpx;padding: 20rpx; justify-content: space-between; margin-bottom: 30rpx;"
+        wx:if="{{buyInfo.voucher_money > 0}}">
+        <view style="display: flex; align-items: center;">
+          <view style="display: flex; align-items: center; margin-right: 50rpx;" class="lijian">
+            <view
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1rpx solid #f9f9f9; padding-right: 15rpx; margin-right: 15rpx; font-size: 20rpx;">
+              <view>立</view>
+              <view>减</view>
+            </view>
+            <view><text style="font-size: 30rpx; font-weight: 800;">{{buyInfo.voucher_money}}</text> <text
+                style="font-size: 24rpx;">元</text> </view>
+          </view>
+          <view style="font-weight: 800;">满{{buyInfo.voucher_money}}减{{buyInfo.voucher_money}}元</view>
+        </view>
+        <view style="font-weight: 800; display: flex; align-items: center;">
+          {{buyInfo.voucher_money_count}}张
+        </view>
+      </view>
+      <view
+        style="display: flex; background: #f5f5f5; border-radius: 10rpx;padding: 20rpx; justify-content: space-between; margin-bottom: 30rpx;"
+        wx:if="{{buyInfo.voucher_rate[0] > 0}}">
+        <view style="display: flex; align-items: center;">
+          <view style="display: flex; align-items: center; margin-right: 50rpx;" class="dizhi">
+            <view
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1rpx solid #ddd; padding-right: 15rpx; margin-right: 15rpx; font-size: 20rpx;">
+              <view>低</view>
+              <view>至</view>
+            </view>
+            <view><text style="font-size: 30rpx; font-weight: 800;">{{buyInfo.voucher_rate[0]}}</text> <text
+                style="font-size: 24rpx;">.{{buyInfo.voucher_rate[1]}}折</text> </view>
+          </view>
+          <view style="font-weight: 800;">{{buyInfo.voucher_rate[0]}}{{buyInfo.voucher_rate[1]}}折优惠券</view>
+        </view>
+        <view style="font-weight: 800; display: flex; align-items: center;">
+          {{buyInfo.voucher_rate_count}}张
+        </view>
+      </view>
+      <scroll-view
+        style="height: {{buyInfo.voucher_money > 0 && buyInfo.voucher_rate[0] > 0 ? 'calc(100% - 536rpx)' : 'calc(100% - 424rpx)' }};"
+        scroll-y="{{true}}">
+        <rich-text nodes="{{buyInfo.description}}"></rich-text>
+      </scroll-view>
+      <view
+        style="position: absolute; bottom: 20rpx; left: 10px; right: 10px;  z-index: 99; background: #fff; display: flex; flex-direction: column; align-items: center;">
+        <button class="app_btn app_btn_red pay_bg" hover-class="app_btn_red_hover"
+          style=" margin: 0 16rpx 16rpx 0; padding: 0 30rpx;" bindtap="sure">立即抢购 ￥{{buyInfo.price_new}} <text
+            style="text-decoration:line-through; color: #ccc; font-size: 26rpx;"> {{buyInfo.price_old}}</text></button>
+        <view><text style="color: #999; font-size: 24rpx;">支付即同意</text> <text bindtap="goPages"
+            data-url="/paginate/youhuiquan/xieyi" style="font-size: 24rpx;">《虎奔君优惠券购买须知》</text></view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{hidden2}}"
+    style="background: #fff; z-index: 99; border-radius: 16rpx; width: 80vw; height: 70vh; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <view
+      style="position: relative; padding: 20rpx; height: 100%; box-sizing: border-box; font-size: 30rpx; display: flex; flex-direction: column; align-items: center;">
+      <view
+        style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+        bindtap="close">
+        <text class="iconfont icon-quxiao" style="font-size: 20rpx;"></text>
+      </view>
+      <view style="padding: 20rpx; font-weight: 800; font-size: 34rpx; text-align: center;">虎奔君优惠券购买须知</view>
+      <view
+        style="display: flex;background: #f5f5f5; border-radius: 10rpx;padding: 20rpx; justify-content: space-between; margin-bottom: 30rpx;"
+        wx:if="{{false}}">
+        <view style="display: flex; align-items: center;">
+          <view style="display: flex; align-items: center; margin-right: 50rpx;" class="lijian">
+            <view
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1rpx solid #f9f9f9; padding-right: 15rpx; margin-right: 15rpx; font-size: 20rpx;">
+              <view>立</view>
+              <view>减</view>
+            </view>
+            <view><text style="font-size: 30rpx; font-weight: 800;">{{buyInfo.voucher_money}}</text> <text
+                style="font-size: 24rpx;">元</text> </view>
+          </view>
+          <view style="font-weight: 800;">满{{buyInfo.voucher_money}}减{{buyInfo.voucher_money}}元</view>
+        </view>
+        <view style="font-weight: 800; display: flex; align-items: center;">
+          {{buyInfo.voucher_money_count}}张
+        </view>
+      </view>
+      <scroll-view style="height: calc(100% - 100rpx);" scroll-y="{{true}}">
+        <rich-text nodes="{{buyInfo.description}}"></rich-text>
+      </scroll-view>
+    </view>
+  </view>
+</view>

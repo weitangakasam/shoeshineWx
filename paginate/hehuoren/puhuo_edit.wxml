@@ -1,0 +1,68 @@
+<view style="padding: 30rpx; font-size: 30rpx;">
+  <form action="" bindsubmit="sureSubmit">
+    <view class="row">
+      <view class="row_fl">
+        <text style="color:red;">*</text>选择商品
+      </view>
+      <view class="row_fr" style="flex: 1; display: flex;align-items: center;justify-content: flex-end;margin-right: 30rpx;" bindtap="selectShop">
+      <image src="{{shopInfo.img}}" style="width: 150rpx;height: 150rpx;"></image>
+        <input placeholder="请选择商品" value="{{shopInfo.title}}" disabled style="padding: 0 0 0 30rpx; flex: 1; text-align: center;" />
+        <view><text class="iconfont icon-youjiantou"></text></view>
+      </view>
+    </view>
+    <view class="row" wx:if="{{false}}">
+      <view class="row_fl">
+        <text style="color:red;">*</text>商品价格
+      </view>
+      <view class="row_fr" style="display: flex;align-items: center;justify-content: flex-end;margin-right: 30rpx;">
+        <input type="number"
+        bindblur="changeMoney"
+         style="border: 2rpx solid #000;width: 120rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;" value="{{info.money}}" />
+        <view style="color: #808080;">元/个</view>
+      </view>
+    </view>
+    <view class="row">
+      <view class="row_fl">
+        <text style="color:red;">*</text>库存
+      </view>
+      <view class="row_fr" style="display: flex;align-items: center;justify-content: flex-end; margin-right: 30rpx;">
+        <view bindtap="delNum"><text class="iconfont icon-jianhao"></text></view>
+        <input type="number" value="{{shopInfo.count}}"
+        bindblur="changeNum"
+         style="border: 2rpx solid #000;width: 100rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;" />
+        <view bindtap="addNum"><text class="iconfont icon-jiahao"></text></view>
+      </view>
+    </view>
+
+    <view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+      <button form-type="submit" class="btn_lan">确认保存</button>
+      <!-- <button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button> -->
+    </view>
+  </form>
+</view>
+
+<!-- 修改 遮罩层 -->
+<view wx:if="{{isSelect}}" class="add_zzc {{isSelect ? 'add_zzc2' : ''}}" bindtap="select_close"></view>
+<view wx:if="{{true}}" class="add_info {{isSelect ? 'add_info2' : 'add_info'}}">
+  <view class="add_top">
+    <view>选择商品</view>
+    <view bindtap="select_close"><text class="iconfont icon-quxiao"></text></view>
+  </view>
+  <scroll-view scroll-y style="height: calc(90vh - 64rpx); padding: 30rpx 50rpx; box-sizing: border-box; font-size: 30rpx;">
+      <view  wx:for="{{shopList}}" wx:key="index">
+        <label for="" style="display: flex; border-bottom: 1rpx solid #ccc; margin-bottom: 30rpx; justify-content: space-between; padding: 0 50rpx 0 0;" bindtap="changeRadio" data-item="{{item}}">
+          <view style="margin: 0 0rpx 0 0;">
+            <image src="{{item.img}}" style="width: 150rpx; height: 150rpx;"></image>
+          </view>
+          <view style="display: flex;align-items: center;">
+            <view style="margin: 30rpx 0 50rpx 0;">{{item.title}}</view>
+
+          </view>
+          <view style="display: flex; align-items: center;">
+            <radio value="{{item.user_vm_goods_id}}" checked="{{item.user_vm_goods_id == shopInfo.user_vm_goods_id}}" />
+          </view>
+        </label>
+      </view>
+  </scroll-view>
+
+</view>

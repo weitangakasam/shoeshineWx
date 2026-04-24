@@ -1,0 +1,76 @@
+/* paginate/tenter/tenter.wxss */
+.title {
+	margin-left: calc(16 / 390 * 750rpx);
+	margin-top: calc(25 / 390 * 750rpx);
+	width: calc(322 / 390 * 750rpx);
+	height: calc(20 / 390 * 750rpx);
+	line-height: calc(20 / 390 * 750rpx);
+	color: rgba(108, 108, 108, 1);
+	font-size: calc(14 / 390 * 750rpx);
+	text-align: left;
+	font-family: PingFangSC-regular;
+}
+.input:nth-child(1) {
+	margin-top: calc(25 / 390 * 750rpx);
+}
+
+.input {
+	margin-left: calc(16 / 390 * 750rpx);
+	margin-bottom: calc(20 / 390 * 750rpx);
+	width: calc(355 / 390 * 750rpx);
+	height: calc(54 / 390 * 750rpx);
+	line-height: calc(20 / 390 * 750rpx);
+	border-radius: calc(13 / 390 * 750rpx);
+	background-color: rgba(255, 255, 255, 1);
+	color: rgba(16, 16, 16, 1);
+	font-size: calc(14 / 390 * 750rpx);
+	text-align: center;
+	font-family: Roboto;
+	position: relative;
+	border: calc(1 / 390 * 750rpx) solid rgba(187, 187, 187, 1);
+}
+
+.input > view {
+	margin-left: calc(12 / 390 * 750rpx);
+	margin-top: calc(17 / 390 * 750rpx);
+	width: calc(64 / 390 * 750rpx);
+	height: calc(23 / 390 * 750rpx);
+	line-height: calc(23 / 390 * 750rpx);
+	color: rgba(16, 16, 16, 1);
+	font-size: calc(16 / 390 * 750rpx);
+	text-align: left;
+	font-family: PingFangSC-medium;
+	white-space: nowrap;
+}
+.require::after {
+	content: '*';
+	color: red;
+}
+
+.input input,
+.input > picker {
+	position: absolute;
+	width: calc(248 / 390 * 750rpx);
+	left: calc(86 / 390 * 750rpx);
+	top: calc(18 / 390 * 750rpx);
+	padding: 0;
+	font-size: calc(14 / 390 * 750rpx);
+	color: rgba(108, 108, 108, 1);
+	text-align: left;
+	font-family: PingFangSC-medium;
+}
+
+button {
+	margin-left: calc(33 / 390 * 750rpx);
+	margin-top: calc(41 / 390 * 750rpx);
+	width: calc(335 / 390 * 750rpx);
+	height: calc(47 / 390 * 750rpx);
+	line-height: calc(47 / 390 * 750rpx);
+	border-radius: calc(15 / 390 * 750rpx);
+	background-color: rgba(26, 173, 25, 1);
+	color: #fff;
+	font-size: calc(14 / 390 * 750rpx);
+	text-align: center;
+	font-family: Roboto;
+	border: calc(1 / 390 * 750rpx) solid rgba(5, 5, 5, 0.08);
+}

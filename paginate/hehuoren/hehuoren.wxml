@@ -1,0 +1,146 @@
+<navbar parameter="{{ parameter }}"></navbar>
+<!-- 数据看板 -->
+<view class="dataBoard">
+	<view class="dataBoard-title">数据看板</view>
+	<view class="dataBoard-body">
+		<view class="dataBoard-item">
+			<view class="data-num">{{ background[0].num }}</view>
+			<view class="dataBoard-lable">今日订单数</view>
+		</view>
+		<view class="dataBoard-item">
+			<view class="data-num">{{ background[0].dayMoney }}</view>
+			<view class="dataBoard-lable">今日营业收入</view>
+		</view>
+		<view class="dataBoard-item">
+			<view class="data-num" style="color: #2A31C8;">{{ background[1].num }}</view>
+			<view class="dataBoard-lable">本月订单数</view>
+		</view>
+		<view class="dataBoard-item">
+			<view class="data-num" style="color: #2A31C8;">{{ background[1].dayMoney }}</view>
+			<view class="dataBoard-lable">本月营业收入</view>
+		</view>
+	</view>
+</view>
+<!-- 功能区 -->
+<view class="functionalArea">
+	<view bindtap="goPages" data-url="/paginate/tixian/tixian" class="functionalArea-item">
+		<image src="/images/ze-balance-list@3x.png" />
+		<view class="functionalArea-label">提现</view>
+	</view>
+	<view bindtap="goPages" data-url="/paginate/cash/cash" class="functionalArea-item">
+			<image src="/images/ze-balance-list@3x.png" />
+			<view class="functionalArea-label">提现记录</view>
+		</view>
+	<view
+		catch:tap="linkTo"
+		data-url="/paginate/hehuoren/order"
+		class="functionalArea-item"
+	>
+		<image src="/images/ze-orders-o@3x.png" />
+		<view class="functionalArea-label">订单</view>
+	</view>
+	<view
+		wx:if="{{ 0 }}"
+		catch:tap="linkTo"
+		data-url="/paginate/data/data"
+		class="functionalArea-item"
+	>
+		<image src="/images/iconPark-positive-dynamics@3x.png" />
+		<view class="functionalArea-label">数据</view>
+	</view>
+</view>
+<!-- 设备管理 -->
+<view class="deviceManagement">
+	<view class="deviceManagement-title">设备管理</view>
+	<view class="deviceManagement-body">
+		<view
+			bindtap="goPages"
+			data-url="/paginate/hehuoren/shebei_admin"
+			class="deviceManagement-item"
+		>
+			<image src="/images/iconPark-control 1@3x.png" />
+			<view style="width: calc(750rpx * 60 / 390);" class="deviceManagement-label">设备管理</view>
+		</view>
+		<view
+			bind:tap="linkTo"
+			data-url="/paginate/add_shebi/add_shebei"
+			class="deviceManagement-item"
+		>
+			<image src="/images/iconPark-newlybuild 1@3x.png" />
+			<view style="width: calc(750rpx * 49 / 390);" class="deviceManagement-label">设备录入</view>
+		</view>
+		<view
+			bind:tap="linkTo"
+			data-url="/paginate/hehuoren/cheji_admin"
+			class="deviceManagement-item"
+		>
+			<image src="/images/iconPark-file-removal-one 1@3x.png" />
+			<view style="width: calc(750rpx * 49 / 390);" class="deviceManagement-label">设备移除</view>
+		</view>
+	</view>
+</view>
+<!-- 人员管理 -->
+<view class="personnelManagement">
+	<view class="personnelManagement-title">人员管理</view>
+	<view class="deviceManagement-body">
+		<block wx:if="{{ agent_info.daili_rate != 2 }}">
+			<view
+				catch:tap="linkTo"
+				data-url="/paginate/hehuoren/renyuan_admin"
+				class="deviceManagement-item"
+				wx:if="{{ parameter.title == '代理商后台' }}"
+			>
+				<image src="/images/person.png" />
+				<view style="width: calc(750rpx * 60 / 390);" class="deviceManagement-label">商户列表</view>
+			</view>
+			<view
+				wx:if="{{ 1 }}"
+				catch:tap="linkTo"
+				data-url="/paginate/tenter/tenter"
+				class="deviceManagement-item"
+			>
+				<image src="/images/arcoDesign-user-add@3x.png" />
+				<view style="width: calc(750rpx * 49 / 390);" class="deviceManagement-label">录入商户</view>
+			</view>
+		</block>
+		<view
+			catch:tap="linkTo"
+			data-url="/paginate/hehuoren/changsuo_admin"
+			class="deviceManagement-item"
+		>
+			<image src="/images/ze-wap-home@3x.png" />
+			<view style="width: calc(750rpx * 49 / 390);" class="deviceManagement-label">{{type==='商户'?'地址':'门店'}}管理</view>
+		</view>
+	</view>
+</view>
+<view class="personnelManagement" style="top: calc(750rpx * 739 / 390);">
+	<view class="personnelManagement-title">系统设置</view>
+	<view class="deviceManagement-body">
+		<button wx:if="{{ 0 }}" open-type="contact" class="deviceManagement-item">
+			<image src="/images/riFill-customer-service-2-fill@3x.png" />
+			<view style="width: calc(750rpx * 50 / 390);" class="deviceManagement-label">在线客服</view>
+		</button>
+		<view
+			wx:if="{{ 0 }}"
+			catch:tap="linkTo"
+			data-url="/paginate/hehuoren/changsuo_admin"
+			class="deviceManagement-item"
+		>
+			<image src="/images/cl.png" />
+			<view style="width: calc(750rpx * 50 / 390);" class="deviceManagement-label">套餐设置</view>
+		</view>
+		<view
+			bindtap="goPages"
+			data-url="/paginate/editPwd/editPwd"
+			class="deviceManagement-item"
+		>
+			<image src="/images/iconPark-edit@3x.png" />
+			<view style="width: calc(750rpx * 52 / 390);" class="deviceManagement-label">修改密码</view>
+		</view>
+		<view bindtap="goPages" data-url="退出" class="deviceManagement-item">
+			<image src="/images/stLine-out-l@3x.png" />
+			<view style="width: calc(750rpx * 52 / 390);" class="deviceManagement-label">退出登陆</view>
+		</view>
+	</view>
+</view>
+<kefu hidden="{{ hidden }}"></kefu>

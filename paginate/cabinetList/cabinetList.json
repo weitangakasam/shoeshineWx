@@ -1,0 +1,16 @@
+{
+	"usingComponents": {
+		"navbar": "/components/navbar/index",
+		"mp-dialog": "weui-miniprogram/dialog/dialog",
+		"fui-bottom-popup": "/components/firstui/fui-bottom-popup/fui-bottom-popup",
+		"mp-form": "weui-miniprogram/form/form",
+		"mp-cells": "weui-miniprogram/cells/cells",
+		"mp-cell": "weui-miniprogram/cell/cell",
+		"mp-form-page": "weui-miniprogram/form-page/form-page",
+		"mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
+		"fui-input": "/components/firstui/fui-input/fui-input",
+		"mp-uploader": "weui-miniprogram/uploader/uploader",
+		"fui-avatar": "/components/firstui/fui-avatar/fui-avatar",
+		"van-uploader": "@vant/weapp/uploader/index"
+	}
+}
