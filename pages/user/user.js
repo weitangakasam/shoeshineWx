@@ -180,6 +180,7 @@ Page({
 				}
 				if (res.data == '启用') {
 					if (wx.getStorageSync('agent-token')) {
+           console.log(111)
 						wx.navigateTo({
 							url: '/paginate/hehuoren/hehuoren'
 						});

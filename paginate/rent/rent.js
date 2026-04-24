@@ -1,4 +1,4 @@
-// paginate/add_shebei/add_shebei.js
+// paginate/rent/rent.js
 Page({
 
     /**

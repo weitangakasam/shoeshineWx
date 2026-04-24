@@ -1,2 +1,383 @@
-<!--paginate/hehuoren/shebei_admin.wxml-->
-<text>paginate/hehuoren/shebei_admin.wxml</text>
+<wxs module="utils" src="./utils.wxs" />
+<view>
+	<!-- tab -->
+	<view style="display: flex;height: 100rpx;align-items: center;" wx:if="{{ false }}">
+		<view
+			style="height: 100%; flex: 1;display: flex; align-items: center;justify-content: center;"
+			class="{{ type == '1' && 'active_bg_fff' }}"
+			data-type="1"
+			bindtap="changeTab"
+		>售货机</view>
+		<view
+			style="height: 100%; flex: 1;display: flex; align-items: center;justify-content: center;"
+			class="{{ type == '2' && 'active_bg_fff' }}"
+			data-type="2"
+			bindtap="changeTab"
+		>租赁机</view>
+	</view>
+	<view class="box">
+		<view class="search-box-bg app_bg_title">
+			<form action="" bindsubmit="search">
+				<view class="search-box">
+					<input type="text" name="search" placeholder="设备编号或名称" />
+					<button form-type="submit" class="app_btn">搜索</button>
+				</view>
+			</form>
+		</view>
+		<view
+			style="height: 50px; display: flex; padding: 0rpx 30rpx; justify-content: space-between; align-items: center;"
+		>
+			<view>
+				<checkbox-group bindchange="checkAll">
+					<label style="display: flex;align-items: center;">
+						<view>
+							<checkbox value="all" checked="{{ isCheckAll }}" />
+						</view>
+						<view class="weui-cell__bd">全选</view>
+					</label>
+				</checkbox-group>
+			</view>
+			<button
+				class="app_btn"
+				style="height: 30px; line-height: 30px; width: 190rpx;"
+				catchtap="edit"
+				data-type="批量"
+			>批量修改</button>
+		</view>
+		<scroll-view
+			scroll-y="{{ true }}"
+			bindscrolltolower="bindscrolltolower"
+			style="height: calc(100vh - {{ parameter.navH }}px - 70px);"
+			class="main"
+		>
+			<checkbox-group bindchange="checkboxChange">
+				<view wx:for="{{ list }}" wx:key="index">
+					<label class="list" bindtap="checkboxChange2" data-index="{{ index }}">
+						<view class="weui-cell__hd">
+							<checkbox value="{{ item.id }}" checked="{{ item.checked }}" />
+						</view>
+						<view class="list_fl" style="flex: 1;">
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">设备名称：</view>
+								{{item.name}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">场所名称:</view>
+								{{item.addr_name}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">场所地段:</view>
+								{{item.addr_location}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; color: #6a55de; display: flex;">
+								<view style="width: 150rpx;">设备号：</view>
+								{{item.only_code}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">门数：</view>
+								{{item.count}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">代理等级：</view>
+								{{item.daili_rate}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">联系人：</view>
+								{{item.username}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">联系电话：</view>
+								{{item.mobile}}
+							</view>
+							<view style="font-size: 30rpx; margin-bottom: 16rpx; display: flex;">
+								<view style="width: 150rpx;">状态：</view>
+								{{item.status}}
+							</view>
+						</view>
+						<view class="list_center" style="color: #808080;">
+							<!-- <view>状态：{{item.status}}</view> -->
+							<block>
+								<view>
+									<button
+										class="app_btn"
+										hover-class="app_btn_hover"
+										style="margin: 0rpx 0 10rpx; height: 60rpx;line-height: 60rpx;"
+										catchtap="edit"
+										data-type="修改"
+										data-item="{{ item }}"
+										data-url="/paginate/cabinetList/cabinetList?only_code={{ item.only_code }}"
+									>修改</button>
+									<button
+										class="app_btn"
+										hover-class="app_btn_hover"
+										style="margin: 0rpx 0 10rpx; height: 60rpx;line-height: 60rpx;"
+										catchtap="goPages"
+										data-item="{{ item }}"
+										data-url="/paginate/cabinetList/cabinetList?only_code={{ item.only_code }}"
+									>柜门列表</button>
+								</view>
+							</block>
+							<block wx:if="{{ item.order_status === '待打扫' }}">
+								<view style="margin-right: 20rpx;">
+									<button
+										class="app_btn"
+										style="margin: 0rpx 0 10rpx; height: 60rpx;line-height: 60rpx;"
+										catch:tap="controller"
+										data-dev_id="{{ item.only_code }}"
+										data-url="manageNetSite/netSiteCleanOver"
+									>已打扫</button>
+								</view>
+							</block>
+						</view>
+					</label>
+					<!-- <view class="list_fr">
+        <view class="iconfont icon-youjiantou" style="font-style: 200rpx; font-weight: 550;"></view>
+      </view> -->
+				</view>
+			</checkbox-group>
+			<view
+				wx:if="{{ list.length == 0 }}"
+				style="position: fixed;top: 50%; left: 50%; transform: translate(-50%, -95%); text-align: center;"
+			>
+				<view class="iconfont icon-wushuju" style="font-size: 100rpx;" />
+				<text style="font-size: 30rpx;">暂无信息</text>
+			</view>
+		</scroll-view>
+		<view
+			class="position app_btn"
+			catchtap="goPages"
+			data-url="/paginate/add_shebi/add_shebei"
+		>
+			<text class="iconfont icon-jiahao" style="font-size: 40rpx;" />
+		</view>
+	</view>
+</view>
+<!-- 修改 遮罩层 -->
+<view
+	wx:if="{{ false }}"
+	class="add_zzc {{ false ? 'add_zzc2' : '' }}"
+	bindtap="edit_close"
+/>
+<view wx:if="{{ false }}" class="add_info {{ false ? 'add_info2' : 'add_info' }}">
+	<view class="add_top">
+		<view>修改</view>
+		<view bindtap="edit_close">
+			<text class="iconfont icon-quxiao" />
+		</view>
+	</view>
+	<view style="padding: 30rpx; font-size: 30rpx;">
+		<form action="">
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*
+					</text>
+					货道数量
+				</view>
+				<view
+					class="row_fr"
+					style="display: flex;align-items: center;justify-content: flex-end; margin-right: 30rpx;"
+				>
+					<view bindtap="delNum">
+						<text class="iconfont icon-jianhao" />
+					</view>
+					<input
+						type="number"
+						value="{{ editValue.amount }}"
+						style="border: 2rpx solid #000;width: 100rpx; text-align: center; margin: 0 10rpx 0; border-radius: 12rpx;"
+						bindblur="changeInput"
+					/>
+					<view bindtap="addNum">
+						<text class="iconfont icon-jiahao" />
+					</view>
+				</view>
+			</view>
+			<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+				<button bindtap="sure2" class="add_btn" style="background: #4d6ef1;">确认保存</button>
+				<!-- <button form-type="reset" class="add_btn" style="border: 2rpx solid #4d6fa3; color: #4d6fa3;">重置</button> -->
+			</view>
+		</form>
+	</view>
+</view>
+<!-- 遮罩层 -->
+<view
+	style="width: 100vw; height: 100vh; background: #000; opacity: 0.5; position: fixed; top: 0; left: 0;"
+	wx:if="{{ hidden || hidden2 || hidden3 }}"
+	bindtap="close"
+/>
+<page-container
+	show="{{ hidden || hidden2 || hidden3 }}"
+	position="{{ hidden ? 'center' : 'bottom' }}"
+	overlay="{{ false }}"
+	custom-style="height: auto;"
+	bind:beforeleave="close"
+>
+	<view
+		wx:if="{{ hidden }}"
+		style="background: #fff; z-index: 99; border-radius: 16rpx; width: 80vw; position: fixed; top: calc(50%); left: 50%; transform: translate(-50%, -50%);"
+	>
+		<view
+			style="position: relative; padding: 20rpx; height: 100%; box-sizing: border-box; font-size: 30rpx;"
+		>
+			<view
+				style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+				bindtap="close"
+			>
+				<text class="iconfont icon-quxiao" style="font-size: 20rpx !important;margin: 0;" />
+			</view>
+			<view
+				style="padding: 20rpx; font-weight: 550; font-size: 34rpx; text-align: center; margin: 0 0 10rpx 0"
+			>提示</view>
+			<view style="margin: 0 0 50rpx 0;">
+				<view style="display: flex; flex-direction: column;align-items: center;">
+					<!-- 开左门还是开右门？ -->
+					<picker
+						mode="selector"
+						style="width:100%;"
+						bindchange="bindPickerChange"
+						value="{{ num_door }}"
+						range="{{ doorArr }}"
+					>
+						<view class="picker" style="text-align: center;" wx:if="{{ num_door }}">{{doorArr[num_door]}}号门</view>
+						<view wx:else style="color: #999; text-align: center;">
+							请选择柜门
+							<text class="iconfont icon-youjiantou" />
+						</view>
+					</picker>
+				</view>
+			</view>
+			<view style="display: flex;">
+				<button
+					class="app_btn"
+					style="width: 100%; margin: 0 10rpx 16rpx 0;"
+					bindtap="close"
+					data-type="左门"
+				>取消</button>
+				<button
+					class="app_btn"
+					style="width: 100%; margin: 0 10rpx 16rpx 0;"
+					bindtap="sure"
+					data-type="右门"
+				>确定</button>
+			</view>
+		</view>
+	</view>
+	<form action="" bindsubmit="editSubmit" wx:if="{{ hidden2 }}">
+		<view class="app_ios">
+			<view class="add_top">
+				<view>修改</view>
+				<view
+					style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+					bindtap="close"
+				>
+					<text class="iconfont icon-quxiao" style="font-size: 20rpx !important;margin: 0;" />
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					设备名称：
+				</view>
+				<view class="row_fr" style="flex: 1;display: flex;align-items: center;">
+					<input
+						type="text"
+						name="name"
+						value="{{ editValue.name }}"
+						placeholder="设备名称"
+						bindblur="changeInput"
+						data-name="name"
+					/>
+				</view>
+			</view>
+			<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+				<button form-type="submit" class="add_btn app_btn" hover-class="app_btn_hover">立即提交</button>
+				<button
+					form-type="reset"
+					class="add_btn"
+					style="border: 2rpx solid #4d6fa3; color: #4d6fa3;"
+				>重置</button>
+			</view>
+		</view>
+	</form>
+</page-container>
+<form action="" bindsubmit="editSubmit2" wx:if="{{ hidden3 }}">
+	<view class="app_ios">
+		<view class="add_top">
+			<view>批量修改</view>
+			<view
+				style="position: absolute; right: 20rpx; top: 20rpx; background: #ccc; color: #fff; border-radius: 50%; width: 40rpx; height: 40rpx;display: flex; justify-content: center;align-items: center;"
+				bindtap="close"
+			>
+				<text class="iconfont icon-quxiao" style="font-size: 20rpx !important;margin: 0;" />
+			</view>
+		</view>
+		<view style="padding: 30rpx; font-size: 30rpx;">
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*
+
+
+
+
+
+
+
+
+
+					</text>
+					免费时间
+				</view>
+				<view class="row_fr" style="flex: 1;display: flex;align-items: center;">
+					<input
+						type="number"
+						name="free_time"
+						value="{{ editValue.free_time }}"
+						placeholder="请输入免费时间"
+						bindblur="changeInput"
+						data-name="free_time"
+					/>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					计费周期
+				</view>
+				<view class="row_fr" style="flex: 1;display: flex;align-items: center;">
+					<input
+						type="number"
+						name="time"
+						value="{{ editValue.time }}"
+						placeholder="请输入计费周期"
+						bindblur="changeInput"
+						data-name="time"
+					/>
+				</view>
+			</view>
+			<view class="row">
+				<view class="row_fl">
+					<text style="color:red;">*</text>
+					周期价格
+				</view>
+				<view class="row_fr" style="flex: 1;display: flex;align-items: center;">
+					<input
+						type="digit"
+						name="money"
+						value="{{ editValue.money }}"
+						placeholder="请输入周期价格"
+						bindblur="changeInput"
+						data-name="money"
+					/>
+				</view>
+			</view>
+			<view style="display: flex; justify-content: center; margin: 30rpx 0 0 0;">
+				<button form-type="submit" class="add_btn app_btn" hover-class="app_btn_hover">立即提交</button>
+				<button
+					form-type="reset"
+					class="add_btn"
+					style="border: 2rpx solid #4d6fa3; color: #4d6fa3;"
+				>重置</button>
+			</view>
+		</view>
+	</view>
+</form>
+<!-- index.wxml -->
